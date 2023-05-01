@@ -13,7 +13,15 @@ subquestion: |
   
     Questions Asked|Your Response
     ---------------|-------------
-    What is the issue? | ${ wills_estates_options }
+    %if wills_estates_options == 'beneficiary':
+    What is the issue? | I am a beneficiary
+    %elif wills_estates_options == 'new_document':
+    What is the issue? | I would like to discuss a new Will, Advance Care Directive, or Power of Attorney
+    %elif wills_estates_options == 'named_executor':
+    What is the issue | I am a named executor and need advice
+    %elif wills_estates_options == 'without_will':
+    What is the issue | Someone has died without a Will and I need advice
+    %endif
     First Name | ${ first_name }
     Last Name | ${ last_name }
     Date of Birth | ${ DOB }
