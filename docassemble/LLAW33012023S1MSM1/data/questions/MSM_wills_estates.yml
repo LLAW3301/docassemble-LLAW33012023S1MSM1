@@ -35,6 +35,7 @@ subquestion: |
   % endif
 buttons:
   - Submit and Exit: exit
+    url: https://www.msmlegal.com.au/
   - Restart: restart
 ---
 question: Potential Wills and Estates Issues
@@ -83,10 +84,15 @@ code: |
 ---
 template: notification
 subject: |
-  Greetings, ${ first_name }${ last_name }!
+  MSM Legal Client Intake Form for ${ first_name } ${ last_name }.
 content: |
-  This is an e-mail sent from a
-  **docassemble** interview.
-
-  Have a nice day!
+  Dear ${ first_name } ${ last_name }, 
+  
+  Thank you for contacting MSM Legal. Please find enclosed a copy of your responses to the Client Intake Form you completed.
+    
+  The team at MSM Legal will be in contact with you as soon as possible to arrange an appointment time to discuss your issue.
+  
+  Kind Regards, 
+  
+    MSM Legal
 ---
