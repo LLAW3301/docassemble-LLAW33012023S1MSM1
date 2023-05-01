@@ -1,0 +1,49 @@
+---
+mandatory: true
+event: WE_final_screen
+question: Thank you for using the MSM Online Client Intake Form
+subquestion: |
+  Thank you for using the MSM Online Client Intake Form!
+  
+  Your responses are shown in the table below.
+  
+  - If you have made a mistake, click the **Restart** button to fix the mistake.
+  
+  - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal Team. A copy of your responses will also be sent to the email address you have provided.
+  
+    Questions Asked|Your Response
+    ---------------|-------------
+    What is the issue? | ${ wills_estates_options.true_values() }
+    First Name | ${ first_name }
+    Last Name | ${ last_name }
+    Date of Birth | ${ DOB }
+    Best Contact Number | ${ phone_number }
+    Email Address | ${ email_address }
+  
+  Once again, thank you for contacting MSM Legal, and we look forward to speaking with you soon. 
+buttons:
+  - Submit and Exit: exit
+  - Restart: restart
+---
+question: Potential Wills and Estates Issues
+subquestion: |
+  Which of the following Wills and Estates issues are you seeking advice for?
+fields:
+  - no label: wills_estates_options
+    datatype: radio
+    choices:
+      - I would like to discuss a new Will, Advanced Care Directive, or Power of Attorney: new_document
+      - I am a named executor and need advice: named_executor
+      - I am a beneficiary and need advice: beneficiary 
+      - Someone has died without a Will and I need advice: without_will
+---
+question: Personal Information
+subquestion: |
+  Please fill out the personal information below.
+fields:
+  - First Name: first_name
+  - Last Name: last_name
+  - Date of Birth (dd/mm/yyyy): DOB
+  - Best Contact Number: phone_number
+  - Email Address: email_address
+---
