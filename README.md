@@ -2,7 +2,4 @@
 
 A docassemble extension.
 
-## Author
-
-Shelley Toth, toth0018@flinders.edu.au
 
