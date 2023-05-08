@@ -4,5 +4,5 @@ A docassemble extension.
 
 ## Author
 
-Shelley Toth, toth0018@flinders.edu.au
+Paige Bowers, bowe0153@flinders.edu.au
 
