@@ -1,0 +1,95 @@
+---
+include:
+  - Migration_Loops.yml
+  - Prototype_willsestates.yml
+---
+mandatory: True
+#This is the initial welcome screen that explains what the application does
+question: Welcome to MSM Legal!
+subquestion: |
+    This will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and assist in finding the best lawyer to help you.
+    
+    **Disclaimier - do we need one - what will it say?**
+buttons:
+  - Continue: continue
+  - Exit: exit
+---
+#This is the code screen that drives 
+mandatory: True
+code: |
+  if ESLQuestion == 'I would like a translator':
+    saveApp
+  if ESLQuestion == 'Continue, I Speak English':
+    if legalIssue == 'Wills and Estates':
+      selectType
+    if legalIssue == 'Migration':
+      if userMainApp == 'Yes':
+        userDetails
+      if userMainApp == 'No':
+        enterOtherDetails
+---
+#This is the ESL question
+question: Is English your first Language?
+subquestion: |
+  **Do you Speak English at home or would you like a translator to help?**
+field: ESLQuestion
+buttons:
+  - "Continue, I Speak English"
+  - "I would like a translator"
+---
+#This is the save and some back later screen - need help with this aspect
+event: saveApp
+question: Would you like to Save and Come Back Later?
+subquestion: |
+  **MSM Legal do not offer translation services. Please feel free to get a family member or friend to help translate.**
+  
+  You can send a link to your email to save this and come back later at a better time, just enter your email below.
+buttons:
+  - Restart: restart
+  - Exit: exit
+    url: https://www.msmlegal.com.au/
+---
+#This asks what legal issue the user has
+question: What is your legal issue?
+subquestion: |
+  **Is it Migration or Wills and Estates related?**
+field: legalIssue
+buttons:
+  - "Migration"
+  - "Wills and Estates"
+---
+question: Please select the type of Wills and Estates Issue.
+subquestion: |
+  **Please choose from the below**
+field: selectType
+buttons:
+  - Restart: restart
+  - "More Information": exit
+    url: https://www.msmlegal.com.au/
+---
+question: Are you the Main Applicant
+subquestion: |
+  **Is ${ personName } the Main Applicant?**
+field: userMainApp
+buttons:
+  - "No"
+  - "Yes"
+---
+question: Please provide us with more of your details
+subquestion: |
+  **Hi ${ personName }, as you are the Main Applicant we need more of your details**
+fields:
+  - Life Story: userDetails
+    input type: area
+---
+question: As you are not the Main Applicant, we will need more details of the Main Applicant!
+subquestion: |
+  Tell me the story of your life.
+fields:
+  - Life Story: enterOtherDetails
+    input type: area
+---
+question: What is the Main Applicant's name?
+fields:
+  - Name: personName
+---
