@@ -17,25 +17,26 @@ buttons:
 #This is the code screen that drives 
 mandatory: True
 code: |
-  if ESLQuestion == 'I would like a translator':
-    saveApp
-  if ESLQuestion == 'Continue, I Speak English':
-    if legalIssue == 'Wills and Estates':
-      selectType
-    if legalIssue == 'Migration':
+  ESLquestion
+  if legalIssue == 'Wills and Estates':
+    selectType
+  elif legalIssue == 'Migration':
       if userMainApp == 'Yes':
         userDetails
-      if userMainApp == 'No':
+        people
+      elif userMainApp == 'No':
         enterOtherDetails
 ---
 #This is the ESL question
 question: Is English your first Language?
 subquestion: |
   **Do you Speak English at home or would you like a translator to help?**
-field: ESLQuestion
-buttons:
-  - "Continue, I Speak English"
-  - "I would like a translator"
+fields:
+  - no label: ESLQuestion
+    datatype: radio
+    choices:
+      - "Continue, I Speak English"
+      - "I would like a translator"
 ---
 #This is the save and some back later screen - need help with this aspect
 event: saveApp
