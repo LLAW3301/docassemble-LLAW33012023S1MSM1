@@ -19,7 +19,7 @@ buttons:
 #This is the code screen that drives 
 mandatory: True
 code: |
-  if ESLquestion == 'Yes' :
+  if ESLquestion == 'Yes':
     language
     interpreterQuestion
   if legalIssue == 'Wills and Estates':
@@ -30,28 +30,37 @@ code: |
 #This is the ESL question
 question: Do you speak a Language other than English at home?
 fields:
-  - no label: ESLquestion
+  - Do you speak a language other than english at home?: ESLquestion
     datatype: radio
     choices:
-      - "Yes"
-      - "No"
+      - Yes
+      - No
+---
+question: Do you require a translator?
+fields:
+  - Which language do you speak?: language
+  - Do you require an interpreter for your meeting with MSM Legal?: interpreterQuestion
+    datatype: radio
+    choices:
+      - Yes 
+      - No 
 ---
 #This is the Langauge
-question: |
-  Do you speak a Language other than English at home?
-fields:
-  - Language: language
+#question: |
+#  Do you speak a Language other than English at home?
+#fields:
+#  - Language: language
 ---
 #This is the interpreter question
-question: Do you require an Interpreter?
-subquestion: |
-  **Is an interpreter required for Phone or In-Person meetings with MSM Legal?**
-fields:
-  - no label: interpreterQuestion
-    datatype: radio
-    choices:
-      - "Yes"
-      - "No"
+#question: Do you require an Interpreter?
+#subquestion: |
+#  **Is an interpreter required for Phone or In-Person meetings with MSM Legal?**
+#fields:
+#  - no label: interpreterQuestion
+#    datatype: radio
+#    choices:
+#      - "Yes"
+#      - "No"
 ---
 #This asks what legal issue the user has
 question: What is your legal issue?
