@@ -135,7 +135,10 @@ subquestion: |
   Please fill out the Main Applicant's Visa Details information below.
 fields:
   - Does the Main Applicant hold a Current Australian Visa: aus_visa
-    datatype: noyesradio 
+    datatype: radio
+    choices:
+      - Yes
+      - No
   - What is the type of Visa held by the Main Applicant: visa_type
     datatype: area
   - What is the main purpose of the Main Applicant's stay in Australia: reason_stay
