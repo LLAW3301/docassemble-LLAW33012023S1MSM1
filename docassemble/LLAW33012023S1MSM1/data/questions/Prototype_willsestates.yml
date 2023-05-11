@@ -1,0 +1,109 @@
+---
+event: WE_final_screen
+question: Thank you for using the MSM Online Client Intake Form
+subquestion: |
+  Thank you for using the MSM Online Client Intake Form!
+  
+  Your responses are shown in the table below.
+  
+  - If you have made a mistake, click the **Restart** button to fix the mistake.
+  
+  - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal Team. A copy of your responses will also be sent to the email address you have provided.
+  
+    Questions Asked|Your Response
+    ---------------|-------------
+    %if wills_estates_options == 'beneficiary':
+    What is the issue? | I am a beneficiary
+    %elif wills_estates_options == 'new_document':
+    What is the issue? | I would like to discuss a new Will, Advance Care Directive, or Power of Attorney
+    %elif wills_estates_options == 'named_executor':
+    What is the issue | I am a named executor and need advice
+    %elif wills_estates_options == 'without_will':
+    What is the issue | Someone has died without a Will and I need advice
+    %endif
+    First Name | ${ first_name }
+    Last Name | ${ last_name }
+    Date of Birth | ${ DOB }
+    Best Contact Number | ${ phone_number }
+    Email Address | ${ email_address }
+  
+  % if email_sent_ok:
+  Once again, thank you for contacting MSM Legal, and we look forward to speaking with you soon. 
+  % else:
+  There was a problem sending the e-mail.
+  % endif
+buttons:
+  - Submit and Exit: exit
+    url: https://www.msmlegal.com.au/
+  - Restart: restart
+---
+question: Potential Wills and Estates Issues
+subquestion: |
+  Which of the following Wills and Estates issues are you seeking advice for?
+fields:
+  - no label: wills_estates_options
+    datatype: radio
+    choices:
+      - I would like to discuss a new Will, Advanced Care Directive, or Power of Attorney: new_document
+      - I am a named executor and need advice: named_executor
+      - I am a beneficiary and need advice: beneficiary 
+      - Someone has died without a Will and I need advice: without_will
+---
+question: Personal Information
+subquestion: |
+  Please fill out the personal information below.
+fields:
+  - First Name: first_name
+  - Last Name: last_name
+  - Date of Birth: DOB
+    datatype: date
+  - Email Address: email_address
+    datatype: email
+  - Is your mobile based in Australia?: phone_international
+    datatype: noyesradio
+    default: False
+  - What country is associated with your phone number?: phone_country
+    code: countries_list()
+    show if: phone_international
+  - What is your phone number?: phone_number
+validation code: |
+  if phone_international:
+    if not phone_number_is_valid(phone_number, country=phone_country):
+      validation_error('Please enter a valid phone number for ' + country_name(phone_country) + '.', field='phone_number')
+  else:
+    if not phone_number_is_valid(phone_number):
+      validation_error('Please enter a valid phone number.', field='phone_number')
+---
+code: |
+  if not phone_international:
+    phone_country = 'Aus'
+---
+code: |
+  email_sent_ok = send_email(to=email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills])
+---
+template: notification
+subject: |
+  MSM Legal Client Intake Form for ${ first_name } ${ last_name }.
+content: |
+  Hello ${ first_name } ${ last_name }, 
+  
+  Thank you for contacting MSM Legal regarding your matter. We have received your enquiry and one of our team members will be in touch shortly.
+  
+  For your reference, please find attached a copy of what we have recieved.
+  
+  Should you have any questions or concerns, please do not hesitate to contact us on (08) 81615088 or via email at dh@msmlegal.com.au
+  
+  Kind Regards, 
+  
+  MSM Legal
+---
+attachment: 
+  - name: legal answers 
+    filename: ${ first_name } ${ last_name } Answers
+    variable name: MSM_Legal_Answer_Template_Wills
+    description: | 
+      contains the answers entered by the user
+    docx template file: MSM_Legal_Answer_Template_Wills.docx
+    valid formats: 
+      - pdf
+---

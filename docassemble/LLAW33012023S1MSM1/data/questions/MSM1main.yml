@@ -1,0 +1,46 @@
+---
+include:
+  - Migration_Loops.yml
+  - Prototype_willsestates.yml
+  - Migration_questions.yml
+---
+mandatory: True
+#This is the initial welcome screen that explains what the application does
+question: Welcome to MSM Legal!
+subquestion: |
+    This will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and assist in finding the best lawyer to help you.
+    
+    **Disclaimier - do we need one - what will it say?**
+buttons:
+  - Continue: continue
+  - Exit: exit
+---
+#This is the code screen that drives 
+mandatory: True
+code: |
+  ESLquestion
+  if legalIssue == 'Wills and Estates':
+    WE_final_screen
+  elif legalIssue == 'Migration':
+    M_final_screen
+---
+#This is the ESL question
+question: Is English your first Language?
+subquestion: |
+  **Do you Speak English at home or would you like a translator to help?**
+fields:
+  - no label: ESLquestion
+    datatype: radio
+    choices:
+      - "Continue, I Speak English"
+      - "I would like a translator"
+---
+#This asks what legal issue the user has
+question: What is your legal issue?
+subquestion: |
+  **Is it Migration or Wills and Estates related?**
+field: legalIssue
+buttons:
+  - "Migration"
+  - "Wills and Estates"
+---
