@@ -10,10 +10,12 @@ question: Welcome to MSM Legal!
 subquestion: |
     This will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and assist in finding the best lawyer to help you.
     
-    **Disclaimier - do we need one - what will it say?**
+    **Disclaimier**
+    
+    **This application does not provide gunuine legal adviceand is not a substitute for you seeking independent legal advice.**
 buttons:
-  - Continue: continue
-  - Exit: exit
+  - I accept and want to continue: continue
+  - I do not accept: exit
     url: https://www.msmlegal.com.au/
 ---
 #This is the code screen that drives 
