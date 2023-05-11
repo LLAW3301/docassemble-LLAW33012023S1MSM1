@@ -14,26 +14,37 @@ subquestion: |
 buttons:
   - Continue: continue
   - Exit: exit
+    url: https://www.msmlegal.com.au/
 ---
 #This is the code screen that drives 
 mandatory: True
 code: |
-  ESLquestion
+  if ESLquestion == 'Yes' :
+    interpreterQuestion
   if legalIssue == 'Wills and Estates':
     WE_final_screen
   elif legalIssue == 'Migration':
     M_final_screen
 ---
 #This is the ESL question
-question: Is English your first Language?
-subquestion: |
-  **Do you Speak English at home or would you like a translator to help?**
+question: Do you speak a Language other than English at home?
 fields:
   - no label: ESLquestion
     datatype: radio
     choices:
-      - "Continue, I Speak English"
-      - "I would like a translator"
+      - "Yes"
+      - "No"
+---
+#This is the interpreter question
+question: Do you require an Interpreter?
+subquestion: |
+  **Is an interpreter required for Phone or In-Person meetings with MSM Legal?**
+fields:
+  - no label: interpreterQuestion
+    datatype: radio
+    choices:
+      - "Yes"
+      - "No"
 ---
 #This asks what legal issue the user has
 question: What is your legal issue?
@@ -43,4 +54,5 @@ field: legalIssue
 buttons:
   - "Migration"
   - "Wills and Estates"
+---
 ---
