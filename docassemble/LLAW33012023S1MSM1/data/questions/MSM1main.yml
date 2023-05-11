@@ -20,6 +20,7 @@ buttons:
 mandatory: True
 code: |
   if ESLquestion == 'Yes' :
+    language
     interpreterQuestion
   if legalIssue == 'Wills and Estates':
     WE_final_screen
@@ -34,6 +35,12 @@ fields:
     choices:
       - "Yes"
       - "No"
+---
+#This is the Langauge
+question: |
+  Do you speak a Language other than English at home?
+fields:
+  - Language: language
 ---
 #This is the interpreter question
 question: Do you require an Interpreter?
