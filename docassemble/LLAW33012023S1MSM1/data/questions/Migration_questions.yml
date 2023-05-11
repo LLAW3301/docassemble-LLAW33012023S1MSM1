@@ -25,12 +25,21 @@ subquestion: |
     Full Name | ${ Main_app_name }
     Date of Birth | ${ Main_app_DOB }
     Email Address | ${ Main_app_email_address }
-    Phone Number | ${ phone_number }
+    Phone Number | ${ Main_app_phone_number }
     Visa Status | ${ aus_visa }
     Visa Type | ${ visa_type }
     Purpose for stay in Australia | ${ reason_stay }
     %endif
   
+    Questions|Your Detail's
+    ------------|-------------
+    %if userMainApp == 'No':
+    Full Name | ${ first_name }${ last_name }
+    Date of Birth | ${ DOB }
+    Email Address | ${ email_address }
+    Phone Number | ${ phone_number }
+    %endif
+
   % if email_sent_ok:
   Once again, thank you for contacting MSM Legal, and we look forward to speaking with you soon. 
   % else:
@@ -132,7 +141,7 @@ fields:
   - What country is associated with the best contact phone number?: phone_country
     code: countries_list()
     show if: phone_international
-  - What is the best contact phone number?: phone_number
+  - What is the best contact phone number?: Main_app_phone_number
 validation code: |
   if phone_international:
     if not phone_number_is_valid(phone_number, country=phone_country):
