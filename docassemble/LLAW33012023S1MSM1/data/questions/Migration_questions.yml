@@ -14,33 +14,52 @@ subquestion: |
     Questions|Main Applicant's Details
     ---------------|-------------
     %if userMainApp == 'Yes':
-    Full Name | ${ M_first_name }${ M_last_name }
-    Date of Birth | ${ M_DOB }
-    Email Address | ${ M_email_address }
-    Phone Number | ${ M_phone_number }
-    Visa Status | ${ M_aus_visa }
-    Visa Type | ${ M_visa_type }
-    Purpose for stay in Australia | ${ M_reason_stay }
+    Full Name | ${ user_first_name } ${ user_last_name }
+    Date of Birth | ${ user_DOB }
+    Email Address | ${ user_email_address }
+    Current Address | ${ user_address }, ${ user_suburb }, ${ user_city } ${ user_city }
+    Country | ${ user_country }
+    Phone Number | ${ user_phone_number }
+    Passport Country| ${ user_passport }
+    Family Members Migrating | ${ userMA_family_members }
+    Visa Status | ${ aus_visa }
+    Visa Type | ${ visa_type }
+    Date of Expiry | ${ visa_expiry }
+    Purpose for stay in Australia | ${ reason_stay }
     %elif userMainApp == 'No':
-    Full Name | ${ Main_app_name }
+    Relationship | ${ user_relationship }
+    Full Name | ${ Main_app_first_name } ${ Main_app_last_name }
     Date of Birth | ${ Main_app_DOB }
     Email Address | ${ Main_app_email_address }
+    Address | ${ Main_app_address }, ${ Main_app_suburb }, ${ Main_app_city } ${ Main_app_state }
+    Country | ${ Main_app_country }
     Phone Number | ${ Main_app_phone_number }
-    Visa Status | ${ M_aus_visa }
-    Visa Type | ${ M_visa_type }
-    Purpose for stay in Australia | ${ M_reason_stay }
+    Migrating Family Members | ${ Main_app_family_members }
+    Passport Country | ${ Main_app_passport }
+    Visa Status | ${ aus_visa }
+    Visa Type | ${ visa_type }
+    Date of Expiry | ${ visa_expiry }
+    Purpose for stay in Australia | ${ reason_stay }
     %endif
   
+    %if userMainApp == 'No':
     Questions|Your Detail's
     ------------|-------------
-    %if userMainApp == 'No':
-    Full Name | ${ M_first_name } ${ M_last_name }
-    Date of Birth | ${ M_DOB }
-    Email Address | ${ M_email_address }
-    Phone Number | ${ M_phone_number }
+    Full Name | ${ user_first_name }${ user_last_name }
+    Date of Birth | ${ user_DOB }
+    Email Address | ${ user_email_address } 
+    Address | ${ user_address } ${ user_suburb }, ${ user_city } ${ user_state }
+    Country | ${ user_country }
+    Phone Number | ${ user_phone_number }
     %endif
-
-  % if M_email_sent_ok:
+    
+    Questions|Your Matter
+    ------------|-------------
+    Legal Issue | ${ legal_issue.true_values() }
+    You Would Like To See | ${ MSM_fee_earner }
+    Appointment Type | ${ appointment_type }
+    
+  % if email_sent_ok:
   Once again, thank you for contacting MSM Legal, and we look forward to speaking with you soon. 
   % else:
   There was a problem sending the e-mail.
@@ -53,115 +72,208 @@ buttons:
 #This is the first question of the migration path - asks if the user is the main applicant
 question: Who is the Main Applicant?
 subquestion: |
-  **${ M_first_name }, are you the Main Applicant?**
+  Are you the Main Applicant?
 field: userMainApp
 buttons:
-  - "No"
   - "Yes"
+  - "No"
 ---
-#This screen shall ask if there are any family members applying/migrating with the user - this is where the loop may come in handy
-
+#If user is the Main Applicant this screen shall ask if there are any family members applying/migrating with them - this is where the loop may come in handy
+question: Family Members
+subquestion: |
+  Do you have any **family members** who will be migrating with you?
+field: userMA_family_members
+buttons:
+  - "Yes"
+  - "No"
+--- 
+#If user is NOT the Main Applicant this screen shall ask if there are any family members applying/migrating with the Main Applicant - this is where the loop may come in handy
+question: Family Members
+subquestion: |
+  Does the Main Applicant have any **family members** who will be migrating with them?
+field: Main_app_family_members
+buttons:
+  - "Yes"
+  - "No"
 ---
 #If there are family members, this screen will ask for their details (including visa status and purpose in Australia)
 
 ---
-#
-
----
-question: Personal Information
+question: Your Detail's
 subquestion: |
-  Please fill out your personal information for your migration application.
+  Please fill out your personal information below.
 fields:
-  - First Name: M_first_name
-  - Last Name: M_last_name
-  - Date of Birth: M_DOB
+  - First Name: user_first_name
+  - Last Name: user_last_name
+  - Date of Birth: user_DOB
     datatype: date
-  - Email Address: M_email_address
+    required: False
+  - Email Address: user_email_address
     datatype: email
-  - Is the best contact mobile based in Australia?: M_phone_international
+  - Current Address: user_address
+    required: False
+  - Suburb: user_suburb
+    required: False
+  - City: user_city
+    required: False
+  - State: user_state
+    required: False
+  - Country: user_country
+    code: countries_list()
+    required: False
+  - Is the best contact mobile based in Australia?: phone_international
     datatype: noyesradio
     default: False
-  - What country is associated with the best contact phone number?: M_phone_country
+  - What country is associated with the best contact phone number?: phone_country
     code: countries_list()
-    show if: M_phone_international
-  - What is the best contact phone number?: M_phone_number
+    show if: phone_international
+  - What is the best contact phone number?: user_phone_number
+  - Passport Country of Issue: user_passport
+    code: countries_list()
+    required: False
 validation code: |
-  if M_phone_international:
-    if not phone_number_is_valid(M_phone_number, country=M_phone_country):
-      validation_error('Please enter a valid phone number for ' + country_name(M_phone_country) + '.', field='M_phone_number')
+  if phone_international:
+    if not phone_number_is_valid(user_phone_number, country=phone_country):
+      validation_error('Please enter a valid phone number for ' + country_name(phone_country) + '.', field='user_phone_number')
   else:
-    if not phone_number_is_valid(M_phone_number):
-      validation_error('Please enter a valid phone number.', field='M_phone_number')
+    if not phone_number_is_valid(user_phone_number):
+      validation_error('Please enter a valid phone number.', field='user_phone_number')
 ---
 code: |
-  if not M_phone_international:
-    M_phone_country = 'Aus'
+  if not phone_international:
+    phone_country = 'Aus'
 ---
 code: |
-  M_email_sent_ok = send_email(to=M_email_address,bcc=['shai.barboza@flinders.edu.au'], template=M_notification, attachments=[MSM_Legal_Answer_Template_Migration])
+  email_sent_ok = send_email(to=user_email_address,bcc=['bowe0153@flinders.edu.au'], template=notification)
 ---
-template: M_notification
+template: notification
 subject: |
-  MSM Legal Client Intake Form for ${ M_first_name } ${ M_last_name }.
+  MSM Legal Client Intake Form for ${ user_first_name } ${ user_last_name }.
 content: |
-  Hello ${ M_first_name } ${ M_last_name }, 
+  Dear ${ user_first_name } ${ user_last_name }, 
   
-  Thank you for contacting MSM Legal regarding your matter. We have received your enquiry and one of our team members will be in touch shortly.
-  
-  For your reference, please find attached a copy of what we have recieved.
-  
-  Should you have any questions or concerns, please do not hesitate to contact us on (08) 81615088 or via email at dh@msmlegal.com.au
+  Thank you for contacting MSM Legal. Please find enclosed a copy of your responses to the Client Intake Form you completed.
+    
+  The team at MSM Legal will be in contact with you as soon as possible to arrange an appointment time to discuss your issue.
   
   Kind Regards, 
   
-  MSM Legal
+    MSM Legal
 ---
-attachment: 
-  - name: legal answers 
-    filename: ${ M_first_name } ${ M_last_name } Answers
-    variable name: MSM_Legal_Answer_Template_Migration
-    description: | 
-      contains the answers entered by the user
-    docx template file: MSM_Legal_Answer_Template_Migration.docx
-    valid formats: 
-      - pdf
+#If User is NOT the main applicant then this screen will ask for their relationship to the MA
+question: Relationship to Main Applicant
+subquestion: What is your relationship to the Main Applicant?
+fields: 
+  - Relationship: user_relationship 
 ---
 question: Main Applicant's Personal Information
 subquestion: |
   Please fill out the Main Applicant's personal information below.
 fields:
-  - The Main Applicant's Name: Main_app_name
+  - The Main Applicant's First Name: Main_app_first_name
+  - The Main Applicant's Last Name: Main_app_last_name
   - The Main Applicant's Date of Birth: Main_app_DOB
     datatype: date
   - The Main Applicant's Email Address: Main_app_email_address
     datatype: email
-  - Is the best contact mobile based in Australia?: Main_app_phone_international
+  - The Main Applicant's Current Address: Main_app_address
+    required: False
+  - Suburb: Main_app_suburb
+    required: False
+  - City: Main_app_city
+    required: False
+  - State: Main_app_state
+    required: False
+  - Country: Main_app_country
+    code: countries_list()
+    required: False
+  - Is the best contact mobile based in Australia?: phone_international
     datatype: noyesradio
     default: False
-  - What country is associated with the best contact phone number?: Main_app_phone_country
+  - What country is associated with the best contact phone number?: phone_country
     code: countries_list()
-    show if: Main_app_phone_international
+    show if: phone_international
   - What is the best contact phone number?: Main_app_phone_number
+  - Passport Country of Issue: Main_app_passport
+    code: countries_list()
+    required: False
 validation code: |
-  if Main_app_phone_international:
-    if not phone_number_is_valid(Main_app_phone_number, country=Main_app_phone_country):
-      validation_error('Please enter a valid phone number for ' + country_name(Main_app_phone_country) + '.', field='phone_number')
+  if phone_international:
+    if not phone_number_is_valid(Main_app_phone_number, country=phone_country):
+      validation_error('Please enter a valid phone number for ' + country_name(phone_country) + '.', field='Main_app_phone_number')
   else:
     if not phone_number_is_valid(Main_app_phone_number):
       validation_error('Please enter a valid phone number.', field='Main_app_phone_number')
 ---
-#This asks for more details from the main applicant
+#This asks for more details from the Main Applicant - VISA DETAILS
 question: Main Applicant's Visa Details
 subquestion: |
-  Please fill out the Main Applicant's Visa Details information below.
+  Please fill out the Main Applicant's **Visa Details** below.
 fields:
-  - Does the Main Applicant hold a Current Australian Visa: M_aus_visa
+  - Does the Main Applicant hold a Current Australian Visa: aus_visa
     datatype: radio
     choices:
-      - Yes
-      - No
-  - What is the type of Visa held by the Main Applicant: M_visa_type
+      - "Yes"
+      - "No"
+  - What is the type of Visa held by the Main Applicant: visa_type
     datatype: area
-  - What is the main purpose of the Main Applicant's stay in Australia: M_reason_stay
+  - What is the date of expiry?: visa_expiry
+    datatype: date
+#NOTE - This has not been asked for by MSM
+  - What is the main purpose of the Main Applicant's stay in Australia?: reason_stay
     datatype: area
+---
+# This asks what legal issue/s the Main Applicant is seeking advise for 
+question: Purpose of enquiry 
+subquestion: |
+  Which best describes the main issue you are seeking advise for?
+    help: |
+      Select one or more issues. 
+fields:
+  - Legal issues: legal_issue
+    datatype: checkboxes
+    choices:
+      - To apply for permanent pathway.
+      - To extend my current stay.
+      - To bring family members to Australia.
+      - Issues with current visa (character, breach of visa condition etc)
+      - Visa refusal
+      - Visa cancellation
+      - Citizenship
+      - Other
+    none of the above: False
+  - If Other, please describe: other_issue
+    datatype: area
+    required: False
+#JAMES - how do I make this required if the person selects Other or use a show if
+#  - Other issue: legal_issue
+#    datatype: area
+#JAMES - need help with the show if 
+#    show if:
+#      variable: legal_issue
+#      is: Other
+---
+question: Which lawyer/migration agent you would like to see?
+subquestion: |
+  Please select a lawyer/migration agent you would like to see, or let MSM Legal select for you.
+fields:
+  - MSM Staff: MSM_fee_earner
+    datatype: radio
+    choices:
+    - Catherine Follett
+    - Mitchell Simmons
+    - Zainab Al-Sweedy
+    - Mark Sekerin
+    - Let MSM assign a lawyer/migration agent to my matter
+---
+# This question will ask what appointment type the user would like to book.
+Question: What type of appointment would you prefer?
+subquestion: |
+  Please select an appointment type.
+fields:
+  - Appointment Type: appointment_type
+    datatype: radio
+    choices:
+    - In person
+    - Virtual (Zoom)
 ---

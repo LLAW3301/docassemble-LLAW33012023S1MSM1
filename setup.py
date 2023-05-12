@@ -46,7 +46,7 @@ def find_package_data(where='.', package='', exclude=standard_exclude, exclude_d
 setup(name='docassemble.LLAW33012023S1MSM1',
       version='0.0.1',
       description=('A docassemble extension.'),
-      long_description='# docassemble.LLAW33012023S1MSM1\r\n\r\nA docassemble extension.\r\n\r\n## Author\r\n\r\nShelley Toth, toth0018@flinders.edu.au\r\nShai Barboza, barb0176@flinders.edu.au\r\nPaige Bowers, bowe0153@flinders.edu.au\r\n',
+      long_description='# docassemble.LLAW33012023S1MSM1\r\n\r\nA docassemble extension.\r\n\r\n## Author\r\n\r\nShelley Toth, toth0018@flinders.edu.au\r\nShai Barboza, barb0176@flinders.edu.au\r\nPaige Bowers, bowe0153@flinders.edu.au\r\nNiamh Keller, kell0481@flinders.edu.au',
       long_description_content_type='text/markdown',
       author='Paige Bowers',
       author_email='bowe0153@flinders.edu.au',
