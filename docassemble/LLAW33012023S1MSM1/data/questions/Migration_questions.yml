@@ -9,7 +9,7 @@ subquestion: |
   
   - If you have made a mistake, click the **Restart** button to fix the mistake.
   
-  - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal Team. A copy of your responses will also be sent to the email address you have provided.
+  - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal team. A copy of your responses will also be sent to the email address you have provided.
   
     Questions|Main Applicant's Details
     ---------------|-------------
@@ -117,7 +117,7 @@ fields:
   - Country: user_country
     code: countries_list()
     required: False
-  - Is the best contact mobile based in Australia?: user_phone_international
+  - Is the best contact phone number based in Australia?: user_phone_international
     datatype: noyesradio
     default: False
   - What country is associated with the best contact phone number?: user_phone_country

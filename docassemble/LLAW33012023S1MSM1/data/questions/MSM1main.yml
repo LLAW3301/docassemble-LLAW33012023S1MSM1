@@ -10,9 +10,9 @@ question: Welcome to MSM Legal!
 subquestion: |
     This will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and assist in finding the best lawyer to help you.
     
-    **Disclaimier**
+    **Disclaimer**
     
-    **This application does not provide gunuine legal adviceand is not a substitute for you seeking independent legal advice.**
+    **This application does not provide genuine legal advice and is not a substitute for you seeking independent legal advice.**
 buttons:
   - I accept and want to continue: continue
   - I do not accept: exit
@@ -30,18 +30,18 @@ code: |
     M_final_screen
 ---
 #This is the ESL question
-question: Do you speak a Language other than English at home?
+question: Do you speak a language other than English at home?
 fields:
-  - Do you speak a language other than english at home?: ESLquestion
+  - Does the Main Applicant speak a language other than English at home?: ESLquestion
     datatype: radio
     choices:
       - Yes
       - No
 ---
-question: Do you require a translator?
+question: Is a translator required?
 fields:
   - Which language do you speak?: language
-  - Do you require an interpreter for your meeting with MSM Legal?: interpreterQuestion
+  - Is an interpreter required?: interpreterQuestion
     datatype: radio
     choices:
       - Yes 
@@ -67,11 +67,11 @@ fields:
 #This asks what legal issue the user has
 question: What is your legal issue?
 subquestion: |
-  **Is it Migration or Wills and Estates related?**
+  **Is it Migration or Wills, Estates and Probate related?**
 field: legalIssue
 buttons:
   - "Migration"
-  - "Wills and Estates"
+  - "Wills, Estates and Probate"
 ---
 default screen parts:
   under: |
