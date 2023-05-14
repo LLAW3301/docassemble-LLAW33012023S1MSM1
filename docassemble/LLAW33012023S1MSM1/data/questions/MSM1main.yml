@@ -24,7 +24,7 @@ code: |
   if ESLquestion == 'Yes':
     language
     interpreterQuestion
-  if legalIssue == 'Wills and Estates':
+  if legalIssue == 'Wills, Estates and Probate':
     WE_final_screen
   elif legalIssue == 'Migration':
     M_final_screen
@@ -70,8 +70,8 @@ subquestion: |
   **Is it Migration or Wills, Estates and Probate related?**
 field: legalIssue
 buttons:
-  - "Migration"
-  - "Wills, Estates and Probate"
+  - 'Migration'
+  - 'Wills, Estates and Probate'
 ---
 default screen parts:
   under: |
