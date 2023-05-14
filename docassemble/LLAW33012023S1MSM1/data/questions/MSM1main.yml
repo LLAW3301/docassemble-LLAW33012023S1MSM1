@@ -6,9 +6,9 @@ include:
 ---
 mandatory: True
 #This is the initial welcome screen that explains what the application does
-question: Welcome to MSM Legal!
+question: Welcome to MSM Legal
 subquestion: |
-    This will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and assist in finding the best lawyer to help you.
+    This application will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and assist in finding the best lawyer to help you.
     
     **Disclaimer**
     
@@ -30,9 +30,10 @@ code: |
     M_final_screen
 ---
 #This is the ESL question
-question: Do you speak a language other than English at home?
+question: |
+  Do you speak a language other than English at home?
 fields:
-  - Does the Main Applicant speak a language other than English at home?: ESLquestion
+  - no label: ESLquestion
     datatype: radio
     choices:
       - Yes
@@ -40,8 +41,8 @@ fields:
 ---
 question: Is a translator required?
 fields:
-  - Which language do you speak?: language
-  - Is an interpreter required?: interpreterQuestion
+  - What language do you speak?: language
+  - Do you require an interpreter required?: interpreterQuestion
     datatype: radio
     choices:
       - Yes 
@@ -65,9 +66,7 @@ fields:
 #      - "No"
 ---
 #This asks what legal issue the user has
-question: What is your legal issue?
-subquestion: |
-  **Is it Migration or Wills, Estates and Probate related?**
+question: What is your legal issue related to?
 field: legalIssue
 buttons:
   - 'Migration'

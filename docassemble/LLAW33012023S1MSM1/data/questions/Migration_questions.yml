@@ -67,9 +67,8 @@ buttons:
   - Restart: restart
 ---
 #This is the first question of the migration path - asks if the user is the main applicant
-question: Who is the Main Applicant?
+question: Are you the Main Applicant?
 subquestion: |
-  **Are you the Main Applicant?**
 field: userMainApp
 buttons:
   - 'Yes'
@@ -95,9 +94,8 @@ buttons:
 ---
 #If there are family members, this screen will ask for their details (including visa status and purpose in Australia)
 ---
-question: Your Detail's
+question: Please fill out your details below.
 subquestion: |
-  Please fill out your personal information below.
 fields:
   - First Name: user_first_name
   - Last Name: user_last_name
@@ -166,7 +164,7 @@ attachment:
       - pdf
 ---
 #This will ask the user for the country of issue for their passport - it is separate from the rest of the information so it will not be asked if the user is NOT the Main Applicant
-question: Passport Information
+question: Main Applicant's Passport Information
 subquestion: |
 fields:
   - Passport Country of Issue: user_passport
@@ -174,15 +172,13 @@ fields:
     required: False
 ---
 #If User is NOT the main applicant then this screen will ask for their relationship to the MA
-question: Relationship to Main Applicant
-subquestion: What is your relationship to the Main Applicant?
+question: What is your relationship to the Main Applicant?
 fields: 
   - Relationship: user_relationship 
     required: False
 ---
-question: Main Applicant's Detail's
+question:  Please fill out the Main Applicant's personal information below.
 subquestion: |
-  Please fill out the Main Applicant's personal information below.
 fields:
   - The Main Applicant's First Name: Main_app_first_name
   - The Main Applicant's Last Name: Main_app_last_name
