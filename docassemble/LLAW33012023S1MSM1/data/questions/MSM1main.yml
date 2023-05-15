@@ -31,7 +31,7 @@ code: |
 ---
 #This is the ESL question
 question: |
-  Do you speak a language other than English at home?
+  Do you speak a language other than English?
 fields:
   - no label: ESLquestion
     datatype: radio
@@ -39,10 +39,10 @@ fields:
       - Yes
       - No
 ---
-question: Is a translator required?
+question: Is a translator required for appointments?
 fields:
   - What language do you speak?: language
-  - Do you require an interpreter required?: interpreterQuestion
+  - Do you require an interpreter?: interpreterQuestion
     datatype: radio
     choices:
       - Yes 

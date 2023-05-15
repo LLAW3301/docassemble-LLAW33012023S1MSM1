@@ -18,9 +18,9 @@ subquestion: |
     Date of Birth | ${ user_DOB }
     Email Address | ${ Muser_email_address }
     Current Address | ${ user_address } ${ user_suburb } ${ user_city } ${ user_state }
-    Country | ${ user_country }
+    Country | ${ country_name(user_country) }
     Phone Number | ${ user_phone_number }
-    Passport Country | ${ user_passport }
+    Passport Country | ${ country_name(user_passport) }
     Family Members Migrating | ${ userMA_family_members }
     Current Australian Visa | ${ user_aus_visa }
     Visa Type | ${ user_visa_type }
@@ -31,9 +31,9 @@ subquestion: |
     Date of Birth | ${ Main_app_DOB }
     Email Address | ${ Main_app_email_address }
     Address | ${ Main_app_address } ${ Main_app_suburb } ${ Main_app_city } ${ Main_app_state }
-    Country | ${ Main_app_country }
+    Country | ${ country_name(Main_app_country) }
     Phone Number | ${ Main_app_phone_number }
-    Passport Country | ${ Main_app_passport }
+    Passport Country | ${ country_name(Main_app_passport) }
     Migrating Family Members | ${ Main_app_family_members }
     Current Australian Visa | ${ Main_app_aus_visa }
     Visa Type | ${ Main_app_visa_type }
@@ -42,7 +42,7 @@ subquestion: |
     %endif
   
     %if userMainApp == 'No':
-    Questions|Your Detail's
+    Questions|Your Details
     ------------|-------------
     Full Name | ${ user_first_name } ${ user_last_name }
     Email Address | ${ Muser_email_address } 
@@ -114,6 +114,7 @@ fields:
     required: False
   - Country: user_country
     code: countries_list()
+    default: AU
     required: False
   - Is the best contact phone number based in Australia?: user_phone_international
     datatype: noyesradio
@@ -198,6 +199,7 @@ fields:
     required: False
   - Country: Main_app_country
     code: countries_list()
+    default: AU
     required: False
   - Is the best contact mobile based in Australia?: Main_app_phone_international
     datatype: noyesradio
@@ -294,7 +296,7 @@ fields:
     - Mitchell Simmons
     - Zainab Al-Sweedy
     - Mark Sekerin
-    - Let MSM assign a lawyer/migration agent to my matter
+    - Let MSM assign someone
 ---
 # This question will ask what appointment type the user would like to book.
 Question: What type of appointment would you prefer?
