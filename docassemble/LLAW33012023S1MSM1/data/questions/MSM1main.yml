@@ -5,6 +5,11 @@ include:
   - Migration_questions.yml
 ---
 mandatory: True
+code: |
+  target = 'normal'
+  show_save_resume_message = False
+  multi_user = True
+---
 #This is the initial welcome screen that explains what the application does
 question: Welcome to MSM Legal
 subquestion: |
@@ -13,21 +18,41 @@ subquestion: |
     **Disclaimer**
     
     **This application does not provide genuine legal advice and is not a substitute for you seeking independent legal advice.**
+field: MSMLegalWelcome
 buttons:
-  - I accept and want to continue: continue
   - I do not accept: exit
-    url: https://www.msmlegal.com.au/
+    color: danger
+  - I accept and want to continue: proceed
 ---
 #This is the code screen that drives 
 mandatory: True
+scan for variables: False
 code: |
-  if ESLquestion == 'Yes':
-    language
-    interpreterQuestion
-  if legalIssue == 'Wills, Estates and Probate':
-    WE_final_screen
-  elif legalIssue == 'Migration':
-    M_final_screen
+  if MSMLegalWelcome == 'proceed':
+    #This now sets the show save resume link to True (so it appears)
+    #However, it only shows in the Wills, Estates and Probate side
+    #You will need to reimplement this on the other branch for Migration
+    show_save_resume_message = True
+    if target == 'save_and_resume':
+      if wants_email:
+        if email_sent:
+          log("We sent an e-mail to your e-mail address.", "info")
+        else:
+          log("There was a problem with e-mailing.", "danger")
+        show_save_resume_message = False
+      undefine('wants_email')
+      undefine('email_sent')
+      target = 'normal'
+    if ESLquestion == 'Yes':
+      language
+      interpreterQuestion
+    
+    if legalIssue == 'Wills, Estates and Probate':
+      WE_final_screen
+    elif legalIssue == 'Migration':
+      M_final_screen
+  elif MSMLegalWelcome == 'exit':
+    command('exit', url='https://www.msmlegal.com.au/')
 ---
 #This is the ESL question
 question: |
@@ -78,13 +103,7 @@ default screen parts:
     [Save and resume later](${ url_action('save_and_resume') })
     % endif
 ---
-mandatory: True
-code: |
-  target = 'normal'
-  show_save_resume_message = True
-  multi_user = True
----
-mandatory: True
+#mandatory: True
 scan for variables: False
 code: |
   if target == 'save_and_resume':
