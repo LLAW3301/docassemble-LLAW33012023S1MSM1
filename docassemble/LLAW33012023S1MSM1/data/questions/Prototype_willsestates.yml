@@ -42,7 +42,7 @@ subquestion: |
   Which of the following Wills and Estates issues are you seeking advice for?
 fields:
   - no label: wills_estates_options
-    datatype: radio
+    datatype: checkboxes
     choices:
       - I would like to discuss a new Will, Advanced Care Directive, or Power of Attorney: new_document
       - I am a named executor and need advice: named_executor
@@ -66,13 +66,14 @@ fields:
     code: countries_list()
     show if: phone_international
   - What is your phone number?: phone_number
-validation code: |
-  if phone_international:
-    if not phone_number_is_valid(phone_number, country=phone_country):
-      validation_error('Please enter a valid phone number for ' + country_name(phone_country) + '.', field='phone_number')
-  else:
-    if not phone_number_is_valid(phone_number):
-      validation_error('Please enter a valid phone number.', field='phone_number')
+### Hashed out as MSM don't need the verification
+###validation code: |
+###  if phone_international:
+###    if not phone_number_is_valid(phone_number, country=phone_country):
+###      validation_error('Please enter a valid phone number for ' + country_name(phone_country) + '.', field='phone_number')
+###  else:
+###    if not phone_number_is_valid(phone_number):
+###      validation_error('Please enter a valid phone number.', field='phone_number')
 ---
 code: |
   if not phone_international:

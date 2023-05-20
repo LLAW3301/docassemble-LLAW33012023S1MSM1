@@ -123,13 +123,14 @@ fields:
     code: countries_list()
     show if: user_phone_international
   - What is the best contact phone number?: user_phone_number
-validation code: |
-  if user_phone_international:
-    if not phone_number_is_valid(user_phone_number, country=user_phone_country):
-      validation_error('Please enter a valid phone number for ' + country_name(user_phone_country) + '.', field='user_phone_number')
-  else:
-    if not phone_number_is_valid(user_phone_number):
-      validation_error('Please enter a valid phone number.', field='user_phone_number')
+### Hashed out as MSM don't need the verification
+###validation code: |
+###  if user_phone_international:
+###    if not phone_number_is_valid(user_phone_number, country=user_phone_country):
+###      validation_error('Please enter a valid phone number for ' + country_name(user_phone_country) + '.', field='user_phone_number')
+###  else:
+###    if not phone_number_is_valid(user_phone_number):
+###      validation_error('Please enter a valid phone number.', field='user_phone_number')
 ---
 code: |
   if not user_phone_international:
@@ -211,13 +212,14 @@ fields:
   - Passport Country of Issue: Main_app_passport
     code: countries_list()
     required: False
-validation code: |
-  if Main_app_phone_international:
-    if not phone_number_is_valid(Main_app_phone_number, country=Main_app_phone_country):
-      validation_error('Please enter a valid phone number for ' + country_name(Main_app_phone_country) + '.', field='Main_app_phone_number')
-  else:
-    if not phone_number_is_valid(Main_app_phone_number):
-      validation_error('Please enter a valid phone number.', field='Main_app_phone_number')
+### Hashed out as MSM don't need the verification
+###validation code: |
+###  if Main_app_phone_international:
+###    if not phone_number_is_valid(Main_app_phone_number, country=Main_app_phone_country):
+###      validation_error('Please enter a valid phone number for ' + country_name(Main_app_phone_country) + '.', field='Main_app_phone_number')
+###  else:
+###    if not phone_number_is_valid(Main_app_phone_number):
+###      validation_error('Please enter a valid phone number.', field='Main_app_phone_number')
 ---
 #If the user is NOT the Main Applicant this asks for the Main Applicant's Visa Details
 question: Main Applicant's Visa Details

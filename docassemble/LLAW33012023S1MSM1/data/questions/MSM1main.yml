@@ -3,6 +3,7 @@ include:
   - Migration_Loops.yml
   - Prototype_willsestates.yml
   - Migration_questions.yml
+  - MSMEndScreen.yml
 ---
 mandatory: True
 code: |
