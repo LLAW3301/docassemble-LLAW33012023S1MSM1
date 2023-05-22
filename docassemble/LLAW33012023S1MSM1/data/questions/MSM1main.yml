@@ -18,7 +18,7 @@ subquestion: |
     
     **Disclaimer**
     
-    **This application does not provide genuine legal advice and is not a substitute for you seeking independent legal advice.**
+    **The contents of this application do not constitute legal advice and should not be relied upon as such. Any information obtained as part of this form is not intended to be a substitute for legal advice.**
 field: MSMLegalWelcome
 buttons:
   - I do not accept: exit
