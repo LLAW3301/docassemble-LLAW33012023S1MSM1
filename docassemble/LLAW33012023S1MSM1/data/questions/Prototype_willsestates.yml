@@ -36,7 +36,7 @@ fields:
   - no label: wills_estates_options
     datatype: checkboxes
     choices:
-      - I would like to discuss a new Will, Advanced Care Directive, or Power of Attorney
+      - I would like to discuss a new Will, Advance Care Directive, or Power of Attorney
       - I am a named executor and need advice
       - I am a beneficiary and need advice
       - Someone has died without a Will and I need advice
