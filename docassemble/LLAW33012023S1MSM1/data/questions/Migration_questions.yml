@@ -137,7 +137,7 @@ code: |
     user_phone_country = 'Aus'
 ---
 code: |
-  M_email_sent_ok = send_email(to=Muser_email_address,bcc=['kell0481@flinders.edu.au'], template=M_notification, attachments=[MSM_Legal_Answer_Template_Migration])
+  M_email_sent_ok = send_email(to=Muser_email_address,bcc=['shai.barboza@flinders.edu.au'], template=M_notification, attachments=[MSM_Legal_Answer_Template_Migration])
 ---
 template: M_notification
 subject: |
