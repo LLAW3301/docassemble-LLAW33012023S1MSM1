@@ -72,6 +72,26 @@ code: |
   if not phone_international:
     phone_country = 'Aus'
 ---
+# We're creating a question block here
+# Review the user's first name, last name and email
+skip undefined: False
+question: |
+  Revist your answers before you email them
+review:
+  - Revisit first name: first_name
+    button: |
+      You said your first name was ${first_name}
+  - Revisit last name: last_name
+    button: |
+      You said your last name was ${last_name}
+  - Revisit email: email_address
+    button: |
+      You provided your email as ${email_address}
+  - Revisit legal problem: wills_estates_options
+    button: |
+      You mentioned that your problems were ${wills_estates_options.true_values()}
+continue button field: WE_review_answers
+---
 code: |
   email_sent_ok = send_email(to=email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills])
 ---

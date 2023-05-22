@@ -49,6 +49,7 @@ code: |
       interpreterQuestion
     
     if legalIssue == 'Wills, Estates and Probate':
+      WE_review_answers
       WE_final_screen
     elif legalIssue == 'Migration':
       M_final_screen
