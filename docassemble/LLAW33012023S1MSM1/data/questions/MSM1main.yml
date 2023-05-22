@@ -1,9 +1,7 @@
 ---
 include:
-  - Migration_Loops.yml
   - Prototype_willsestates.yml
   - Migration_questions.yml
-  - MSMEndScreen.yml
 ---
 mandatory: True
 code: |
@@ -18,7 +16,9 @@ subquestion: |
     
     **Disclaimer**
     
-    **The contents of this application do not constitute legal advice and should not be relied upon as such. Any information obtained as part of this form is not intended to be a substitute for legal advice.**
+    **The contents of this application do not constitute legal advice and should not be relied upon as such.** 
+    
+    **Any information obtained as part of this form is not intended to be a substitute for legal advice.**
 field: MSMLegalWelcome
 buttons:
   - I do not accept: exit
