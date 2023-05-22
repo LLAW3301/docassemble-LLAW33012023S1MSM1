@@ -11,50 +11,50 @@ subquestion: |
   
   - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal team. A copy of your responses will also be sent to the email address you have provided.
   
-    Questions|Main Applicant's Details
-    ---------------|-------------
+    | Questions|Main Applicant's Details |
+    | ---------------|------------- |
     %if userMainApp == 'Yes':
-    Full Name | ${ user_first_name } ${ user_last_name }
-    Date of Birth | ${ user_DOB }
-    Email Address | ${ Muser_email_address }
-    Current Address | ${ user_address } ${ user_city } ${ user_state } ${ user_postcode }
-    Country | ${ country_name(user_country) }
-    Phone Number | ${ user_phone_number }
-    Passport Country | ${ country_name(user_passport) }
-    Family Members Migrating | ${ userMA_family_members }
-    Current Australian Visa | ${ user_aus_visa }
-    Visa Type | ${ user_visa_type }
-    Date of Expiry | ${ user_visa_expiry }
-    Purpose of stay in Australia | ${ user_reason_stay }
+    | Full Name | ${ user_first_name } ${ user_last_name } |
+    | Date of Birth | ${ user_DOB } |
+    | Email Address | ${ Muser_email_address } |
+    | Current Address | ${ user_address } ${ user_city } ${ user_state } ${ user_postcode } |
+    | Country | ${ country_name(user_country) } |
+    | Phone Number | ${ user_phone_number } |
+    | Passport Country | ${ country_name(user_passport) } |
+    | Family Members Migrating | ${ userMA_family_members } |
+    | Current Australian Visa | ${ user_aus_visa } |
+    | Visa Type | ${ user_visa_type } |
+    | Date of Expiry | ${ user_visa_expiry } |
+    | Purpose of stay in Australia | ${ user_reason_stay } |
     %elif userMainApp == 'No':
-    Full Name | ${ Main_app_first_name } ${ Main_app_last_name }
-    Date of Birth | ${ Main_app_DOB }
-    Email Address | ${ Main_app_email_address }
-    Address | ${ Main_app_address } ${ Main_app_city } ${ Main_app_state } ${ Main_app_postcode }
-    Country | ${ country_name(Main_app_country) }
-    Phone Number | ${ Main_app_phone_number }
-    Passport Country | ${ country_name(Main_app_passport) }
-    Migrating Family Members | ${ Main_app_family_members }
-    Current Australian Visa | ${ Main_app_aus_visa }
-    Visa Type | ${ Main_app_visa_type }
-    Date of Expiry | ${ Main_app_visa_expiry }
-    Purpose of stay in Australia | ${ Main_app_reason_stay }
+    | Full Name | ${ Main_app_first_name } ${ Main_app_last_name } |
+    | Date of Birth | ${ Main_app_DOB } |
+    | Email Address | ${ Main_app_email_address } |
+    | Address | ${ Main_app_address } ${ Main_app_city } ${ Main_app_state } ${ Main_app_postcode } |
+    | Country | ${ country_name(Main_app_country) } |
+    | Phone Number | ${ Main_app_phone_number } |
+    | Passport Country | ${ country_name(Main_app_passport) } |
+    | Migrating Family Members | ${ Main_app_family_members } |
+    | Current Australian Visa | ${ Main_app_aus_visa } |
+    | Visa Type | ${ Main_app_visa_type } |
+    | Date of Expiry | ${ Main_app_visa_expiry } |
+    | Purpose of stay in Australia | ${ Main_app_reason_stay } |
     %endif
   
     %if userMainApp == 'No':
-    Questions|Your Details
-    ------------|-------------
-    Full Name | ${ user_first_name } ${ user_last_name }
-    Email Address | ${ Muser_email_address } 
-    Phone Number | ${ user_phone_number }
-    Relationship to Main Applicant | ${ user_relationship }
+    | Questions|Your Details |
+    | ------------|------------- |
+    | Full Name | ${ user_first_name } ${ user_last_name } |
+    | Email Address | ${ Muser_email_address } |
+    | Phone Number | ${ user_phone_number } |
+    | Relationship to Main Applicant | ${ user_relationship } |
     %endif
     
-    Questions|Your Matter
-    ------------|-------------
-    Purpose of Enquiry | ${ enquiry_purpose.true_values() } { other_purpose }
-    You Would Like To See | ${ MSM_fee_earner }
-    Appointment Type | ${ appointment_type }
+    | Questions|Your Matter |
+    | ------------|------------- |
+    | Purpose of Enquiry | ${ enquiry_purpose.true_values() } { other_purpose } |
+    | You Would Like To See | ${ MSM_fee_earner } |
+    |  Appointment Type | ${ appointment_type } |
 
   % if M_email_sent_ok:
   Once again, thank you for contacting MSM Legal, and we look forward to speaking with you soon. 
