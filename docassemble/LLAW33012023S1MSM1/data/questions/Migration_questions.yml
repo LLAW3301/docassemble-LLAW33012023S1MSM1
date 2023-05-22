@@ -123,18 +123,82 @@ fields:
     code: countries_list()
     show if: user_phone_international
   - What is the best contact phone number?: user_phone_number
-### Hashed out as MSM don't need the verification
-###validation code: |
-###  if user_phone_international:
-###    if not phone_number_is_valid(user_phone_number, country=user_phone_country):
-###      validation_error('Please enter a valid phone number for ' + country_name(user_phone_country) + '.', field='user_phone_number')
-###  else:
-###    if not phone_number_is_valid(user_phone_number):
-###      validation_error('Please enter a valid phone number.', field='user_phone_number')
 ---
 code: |
   if not user_phone_international:
     user_phone_country = 'Aus'
+---
+# We're creating a question block here
+# Review the user's first name, last name and email
+skip undefined: False
+question: |
+  Revist your answers before you email them
+review:
+  - Revisit first name: user_first_name
+    button: |
+      You said your first name was ${user_first_name}
+  - Revisit last name: user_last_name
+    button: |
+      You said your last name was ${user_last_name}
+  - Revisit Date of Birth: user_DOB
+    button: |
+      You said your Date of Birth was ${user_DOB}
+  - Revisit email: Muser_email_address
+    button: |
+      You provided your email as ${Muser_email_address}
+  - Revisit your Current Address: user_address
+    button: |
+      You said your Current Address was ${user_address} ${user_city} ${user_state} ${user_postcode}, ${country_name(user_country)}
+  - Revisit Phone Number: user_phone_number
+    button: |
+      You provided your phone number as ${user_phone_number}
+###  - Revisit Main Applicant's first name: Main_app_first_name
+###    button: |
+###      You said the Main Applicant's first name was ${Main_app_first_name}
+###  - Revisit Main Applicant's last name: Main_app_last_name
+###    button: |
+###      You said the Main Applicant's last name was ${Main_app_last_name}
+###  - Revisit the Main Applicant's Date of Birth: Main_app_DOB
+###    button: |
+###      You said the Main Applicant's Date of Birth was ${Main_app_DOB}
+###  - Revisit the Main Applicant's email: Main_app_email_address
+###    button: |
+###      You provided the Main Applicant's as ${Main_app_address}
+###  - Revisit the Main Applicant's Current Address: Main_app_address
+###    button: |
+###      You said the Main Applicant's Current Address was  ${Main_app_address} ${Main_app_city} ${Main_app_state} ${Main_app_postcode}, ${country_name(Main_app_country)}
+###  - Revisit the Main Applicant's Phone Number: Main_app_phone_number
+###    button: |
+###      You provided the Main Applicant's phone number as ${Main_app_phone_number}
+  - Revisit Passport Country: userMA_family_members
+    button: |
+      You provided your Passport Country as ${country_name(user_passport)}
+  - Revisit Family Members Migrating: userMA_family_members
+    button: |
+      You provided your Family Members Migrating as ${userMA_family_members}
+  - Revisit Current Australian Visa: user_aus_visa
+    button: |
+      You provided your Current Australian Visa status as ${user_aus_visa}
+  - Revisit Visa Type: user_visa_type
+    button: |
+      You provided your Visa Type as ${user_visa_type}
+  - Revisit Visa Date of Expiry: user_visa_expiry
+    button: |
+      You provided your Visa Date of Expiry as ${user_visa_expiry}
+  - Revisit Purpose of stay in Australia: user_reason_stay
+    button: |
+      You provided your Purpose of stay in Australia as ${user_reason_stay}
+
+  - Revisit Purpose of Enquiry: enquiry_purpose
+    button: |
+      You mentioned that your Purpose of Enquiry was; ${enquiry_purpose.true_values()}
+  - Revisit Who You Would Like To See: MSM_fee_earner
+    button: |
+      You mentioned that you would like to see ${MSM_fee_earner}
+  - Revisit Appointment Type: appointment_type
+    button: |
+      You mentioned that you would like to meet ${appointment_type}
+continue button field: M_review_answers
 ---
 code: |
   M_email_sent_ok = send_email(to=Muser_email_address,bcc=['shai.barboza@flinders.edu.au'], template=M_notification, attachments=[MSM_Legal_Answer_Template_Migration])
@@ -212,14 +276,6 @@ fields:
   - Passport Country of Issue: Main_app_passport
     code: countries_list()
     required: False
-### Hashed out as MSM don't need the verification
-###validation code: |
-###  if Main_app_phone_international:
-###    if not phone_number_is_valid(Main_app_phone_number, country=Main_app_phone_country):
-###      validation_error('Please enter a valid phone number for ' + country_name(Main_app_phone_country) + '.', field='Main_app_phone_number')
-###  else:
-###    if not phone_number_is_valid(Main_app_phone_number):
-###      validation_error('Please enter a valid phone number.', field='Main_app_phone_number')
 ---
 #If the user is NOT the Main Applicant this asks for the Main Applicant's Visa Details
 question: Main Applicant's Visa Details
