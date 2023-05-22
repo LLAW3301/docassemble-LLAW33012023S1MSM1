@@ -12,15 +12,7 @@ subquestion: |
   
     Questions Asked|Your Response
     ---------------|-------------
-    %if wills_estates_options == 'beneficiary':
-    What is the issue? | I am a beneficiary
-    %elif wills_estates_options == 'new_document':
-    What is the issue? | I would like to discuss a new Will, Advance Care Directive, or Power of Attorney
-    %elif wills_estates_options == 'named_executor':
-    What is the issue | I am a named executor and need advice
-    %elif wills_estates_options == 'without_will':
-    What is the issue | Someone has died without a Will and I need advice
-    %endif
+    What is the issue? | ${ wills_estates_options.true_values() }
     First Name | ${ first_name }
     Last Name | ${ last_name }
     Date of Birth | ${ DOB }
@@ -44,10 +36,11 @@ fields:
   - no label: wills_estates_options
     datatype: checkboxes
     choices:
-      - I would like to discuss a new Will, Advanced Care Directive, or Power of Attorney: new_document
-      - I am a named executor and need advice: named_executor
-      - I am a beneficiary and need advice: beneficiary 
-      - Someone has died without a Will and I need advice: without_will
+      - I would like to discuss a new Will, Advanced Care Directive, or Power of Attorney
+      - I am a named executor and need advice
+      - I am a beneficiary and need advice
+      - Someone has died without a Will and I need advice
+    none of the above: False
 ---
 question: Personal Information
 subquestion: |
