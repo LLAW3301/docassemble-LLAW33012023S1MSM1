@@ -10,7 +10,34 @@ subquestion: |
   - If you have made a mistake, click the **Restart** button to fix the mistake.
   
   - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal team. A copy of your responses will also be sent to the email address you have provided.
-  
+    
+  <html>
+  <head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 50%;
+        }
+        
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 50%;
+        }
+        
+    </style>
+  </head>
+    
     | Questions|Main Applicant's Details |
     | ---------------|------------- |
     %if userMainApp == 'Yes':
@@ -40,7 +67,7 @@ subquestion: |
     | Date of Expiry | ${ Main_app_visa_expiry } |
     | Purpose of stay in Australia | ${ Main_app_reason_stay } |
     %endif
-  
+    
     %if userMainApp == 'No':
     | Questions|Your Details |
     | ------------|------------- |
