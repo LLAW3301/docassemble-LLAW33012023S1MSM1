@@ -16,9 +16,11 @@ subquestion: |
     
     **Disclaimer**
     
-    **The contents of this application do not constitute legal advice and should not be relied upon as such.** 
+    - The contents of this application do not constitute legal advice and should not be relied upon as such.
     
-    **Any information obtained as part of this form is not intended to be a substitute for legal advice.**
+    - Any information obtained as part of this form is not intended to be a substitute for legal advice.
+    
+    - All information collected by this form is collected in accordance with the **Privacy Act 1988 (Cth)**.
 field: MSMLegalWelcome
 buttons:
   - I do not accept: exit
@@ -49,6 +51,7 @@ code: |
       interpreterQuestion
     
     if legalIssue == 'Wills, Estates and Probate':
+      WE_review_answers
       WE_final_screen
     elif legalIssue == 'Migration':
       M_final_screen
@@ -73,23 +76,6 @@ fields:
     choices:
       - Yes 
       - No 
----
-#This is the Langauge
-#question: |
-#  Do you speak a Language other than English at home?
-#fields:
-#  - Language: language
----
-#This is the interpreter question
-#question: Do you require an Interpreter?
-#subquestion: |
-#  **Is an interpreter required for Phone or In-Person meetings with MSM Legal?**
-#fields:
-#  - no label: interpreterQuestion
-#    datatype: radio
-#    choices:
-#      - "Yes"
-#      - "No"
 ---
 #This asks what legal issue the user has
 question: What is your legal issue related to?
