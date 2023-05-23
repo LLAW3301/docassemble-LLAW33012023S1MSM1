@@ -1,4 +1,5 @@
 ---
+#This includes the code from the other interviews
 include:
   - Prototype_willsestates.yml
   - Migration_questions.yml
@@ -8,6 +9,37 @@ code: |
   target = 'normal'
   show_save_resume_message = False
   multi_user = True
+---
+#This is the code screen that drives 
+mandatory: True
+scan for variables: False
+code: |
+  if MSMLegalWelcome == 'proceed':
+    #This now sets the show save resume link to True (so it appears)
+    #However, it only shows in the Wills, Estates and Probate side
+    #You will need to reimplement this on the other branch for Migration
+    show_save_resume_message = True
+    if target == 'save_and_resume':
+      if wants_save_and_resume_email:
+        if save_email_sent:
+          log("We sent an e-mail to your e-mail address.", "info")
+        else:
+          log("There was a problem with e-mailing.", "danger")
+        show_save_resume_message = False
+      undefine('wants_save_and_resume_email')
+      undefine('save_email_sent')
+      target = 'normal'
+    if ESLquestion == 'Yes':
+      ESL_language_spoken
+      is_interpreter_needed
+    
+    if legalIssue == 'Wills, Estates and Probate':
+      WE_review_answers
+      WE_final_screen
+    elif legalIssue == 'Migration':
+      M_final_screen
+  elif MSMLegalWelcome == 'exit':
+    command('exit', url='https://www.msmlegal.com.au/')
 ---
 #This is the initial welcome screen that explains what the application does
 question: Welcome to MSM Legal
@@ -27,37 +59,6 @@ buttons:
     color: danger
   - I accept and want to continue: proceed
 ---
-#This is the code screen that drives 
-mandatory: True
-scan for variables: False
-code: |
-  if MSMLegalWelcome == 'proceed':
-    #This now sets the show save resume link to True (so it appears)
-    #However, it only shows in the Wills, Estates and Probate side
-    #You will need to reimplement this on the other branch for Migration
-    show_save_resume_message = True
-    if target == 'save_and_resume':
-      if wants_email:
-        if email_sent:
-          log("We sent an e-mail to your e-mail address.", "info")
-        else:
-          log("There was a problem with e-mailing.", "danger")
-        show_save_resume_message = False
-      undefine('wants_email')
-      undefine('email_sent')
-      target = 'normal'
-    if ESLquestion == 'Yes':
-      language
-      interpreterQuestion
-    
-    if legalIssue == 'Wills, Estates and Probate':
-      WE_review_answers
-      WE_final_screen
-    elif legalIssue == 'Migration':
-      M_final_screen
-  elif MSMLegalWelcome == 'exit':
-    command('exit', url='https://www.msmlegal.com.au/')
----
 #This is the ESL question
 question: |
   Do you speak a language other than English?
@@ -68,10 +69,11 @@ fields:
       - Yes
       - No
 ---
+#These questions are asked if the user chooses yes to the ESL question
 question: Is a translator required for appointments?
 fields:
-  - What language do you speak?: language
-  - Do you require an interpreter?: interpreterQuestion
+  - What language do you speak?: ESL_language_spoken
+  - Do you require an interpreter?: is_interpreter_needed
     datatype: radio
     choices:
       - Yes 
@@ -84,24 +86,25 @@ buttons:
   - 'Migration'
   - 'Wills, Estates and Probate'
 ---
+# This is code for the save and resume function
 default screen parts:
   under: |
     % if show_save_resume_message:
     [Save and resume later](${ url_action('save_and_resume') })
     % endif
 ---
-#mandatory: True
+#This is the main code for the save and resume function
 scan for variables: False
 code: |
   if target == 'save_and_resume':
-    if wants_email:
-      if email_sent:
+    if wants_save_and_resume_email:
+      if save_email_sent:
         log("We sent an e-mail to your e-mail address.", "info")
       else:
         log("There was a problem with e-mailing.", "danger")
       show_save_resume_message = False
-    undefine('wants_email')
-    undefine('email_sent')
+    undefine('wants_save_and_resume_email')
+    undefine('save_email_sent')
     target = 'normal'
   M_final_screen or WE_final_screen
 ---
@@ -110,9 +113,10 @@ code: |
   target = 'save_and_resume'
 ---
 code: |
-  send_email(to=user_email_address, template=save_resume_template)
-  email_sent = True
+  send_email(to=user_email_address_for_save, template=save_resume_template)
+  save_email_sent = True
 ---
+#This is the question block displayed during the interview if the user clicks save and resume on one of the questions
 question: |
   How to resume your interview later
 subquestion: |
@@ -120,17 +124,18 @@ subquestion: |
   e-mail you a link that you can click on to resume
   your interview at a later time.
 fields:
-  - no label: wants_email
+  - no label: wants_save_and_resume_email
     input type: radio
     choices:
       - "Ok, e-mail me": True
       - "No thanks": False
     default: True
-  - E-mail address: user_email_address
+  - E-mail address: user_email_address_for_save
     datatype: email
-    show if: wants_email
+    show if: wants_save_and_resume_email
 under: ""
 ---
+# This controls what is displayed in the email sent to the user if they wish to save and resume
 template: save_resume_template
 subject: |
   Your interview

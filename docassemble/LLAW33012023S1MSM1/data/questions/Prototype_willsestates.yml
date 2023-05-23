@@ -1,4 +1,6 @@
 ---
+# This is the final screen of the wills and estates path
+# This screen forces docassemble to ask each of the wills and estates questions
 event: WE_final_screen
 question: Thank you for using the MSM Online Client Intake Form
 subquestion: |
@@ -9,13 +11,13 @@ subquestion: |
     Questions Asked|Your Response
     ---------------|-------------
     What is the issue? | ${ wills_estates_options.true_values() }
-    First Name | ${ first_name }
-    Last Name | ${ last_name }
-    Date of Birth | ${ DOB }
-    Best Contact Number | ${ phone_number }
-    Email Address | ${ email_address }
+    First Name | ${ wills_estates_first_name }
+    Last Name | ${ wills_estates_last_name }
+    Date of Birth | ${ wills_estates_DOB }
+    Best Contact Number | ${ wills_estates_phone_number }
+    Email Address | ${ wills_estates_email_address }
   
-  % if email_sent_ok:
+  % if wills_estates_email_sent_ok:
   Once again, thank you for contacting MSM Legal, and we look forward to speaking with you soon. 
   % else:
   There was a problem sending the e-mail.
@@ -25,6 +27,7 @@ buttons:
     url: https://www.msmlegal.com.au/
   - Restart: restart
 ---
+# This question block asks the user which legal issue they may be having
 question: Potential Wills and Estates Issues
 subquestion: |
   Which of the following Wills and Estates issues are you seeking advice for?
@@ -38,15 +41,16 @@ fields:
       - Someone has died without a Will and I need advice
     none of the above: False
 ---
+# This question block asks the user to fill in their personal information
 question: Personal Information
 subquestion: |
   Please fill out the personal information Wills and Estates issue.
 fields:
-  - First Name: first_name
-  - Last Name: last_name
-  - Date of Birth: DOB
+  - First Name: wills_estates_first_name
+  - Last Name: wills_estates_last_name
+  - Date of Birth: wills_estates_DOB
     datatype: date
-  - Email Address: email_address
+  - Email Address: wills_estates_email_address
     datatype: email
   - Is your mobile based in Australia?: phone_international
     datatype: noyesradio
@@ -54,14 +58,14 @@ fields:
   - What country is associated with your phone number?: phone_country
     code: countries_list()
     show if: phone_international
-  - What is your phone number?: phone_number
+  - What is your phone number?: wills_estates_phone_number
 ---
+# This code sets the default country for the users phone number
 code: |
   if not phone_international:
     phone_country = 'Aus'
 ---
-# We're creating a question block here
-# Review the user's first name, last name and email
+#This is the review question block for the wills and estates path 
 skip undefined: False
 question: |
   Review your answers
@@ -74,28 +78,30 @@ subquestion: |
   
   - If you are satisfied with the information you have provided, click **Continue**.
 review:
-  - Revisit: first_name
+  - Revisit: wills_estates_first_name
     button: |
-      Your first name is: **${first_name}**
-  - Revisit: last_name
+      Your first name is: **${wills_estates_first_name}**
+  - Revisit: wills_estates_last_name
     button: |
-      Your last name is: **${last_name}**
-  - Revisit: email_address
+      Your last name is: **${wills_estates_last_name}**
+  - Revisit: wills_estates_email_address
     button: |
-      Your email is: **${email_address}**
+      Your email is: **${wills_estates_email_address}**
   - Revisit: wills_estates_options
     button: |
       Legal issue/s; **${wills_estates_options.true_values()}**
 continue button field: WE_review_answers
 ---
+# this code block runs the email function for the wills and estates path
 code: |
-  email_sent_ok = send_email(to=email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills])
+  wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills])
 ---
+#this is the email template that the user recieves for the wills and estates path
 template: notification
 subject: |
-  MSM Legal Client Intake Form for ${ first_name } ${ last_name }.
+  MSM Legal Client Intake Form for ${ wills_estates_first_name } ${ wills_estates_last_name }.
 content: |
-  Hello ${ first_name } ${ last_name }, 
+  Hello ${ wills_estates_first_name } ${ wills_estates_last_name }, 
   
   Thank you for contacting MSM Legal regarding your matter. We have received your enquiry and one of our team members will be in touch shortly.
   
@@ -107,9 +113,10 @@ content: |
   
   MSM Legal
 ---
+# This block controls the PDF attachment for the wills estates email
 attachment: 
   - name: legal answers 
-    filename: ${ first_name } ${ last_name } Answers
+    filename: ${ wills_estates_first_name } ${ wills_estates_last_name } Answers
     variable name: MSM_Legal_Answer_Template_Wills
     description: | 
       contains the answers entered by the user
