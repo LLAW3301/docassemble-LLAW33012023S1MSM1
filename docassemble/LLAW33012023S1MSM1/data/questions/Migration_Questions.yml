@@ -15,7 +15,7 @@ subquestion: |
     ---------------|-------------
     %if is_user_main_applicant == 'Yes':
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
-    Date of Birth | ${ format_date(migration_user_DOB, format='dd mmmm yyyy')}
+    Date of Birth | ${ format_date(migration_user_DOB, format='dd mmmm yyyy') }
     Email Address | ${ migration_user_email_address }
     Current Address | ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
     Country | ${ country_name(migration_user_country) }
@@ -37,7 +37,7 @@ subquestion: |
     Migrating Family Members | ${ migration_main_app_family_members }
     Current Australian Visa | ${ migration_main_app_aus_visa }
     Visa Type | ${ migration_main_app_visa_type }
-    Date of Expiry | ${ migration_main_app_visa_expiry }
+    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' dd mmmm yyyy') }
     Purpose of stay in Australia | ${ migration_main_app_reason_stay }
     %endif
   

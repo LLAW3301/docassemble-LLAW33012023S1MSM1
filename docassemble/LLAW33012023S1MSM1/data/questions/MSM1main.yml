@@ -2,7 +2,7 @@
 #This includes the code from the other interviews
 #test comment
 include:
-  - MSM_Wills_Estates.yml
+  - Wills_Estates_Questions.yml
   - Migration_Questions.yml
 ---
 mandatory: True
