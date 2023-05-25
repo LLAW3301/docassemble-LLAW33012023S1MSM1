@@ -116,7 +116,7 @@ fields:
   - Country: migration_user_country
     code: countries_list()
     default: AU
-    required: False
+    required: True
   - Is the best contact phone number based in Australia?: migration_user_phone_international
     datatype: noyesradio
     default: False
@@ -168,7 +168,8 @@ subquestion: |
 fields:
   - Passport Country of Issue: migration_user_passport
     code: countries_list()
-    required: False
+    default: AU
+    required: True
 ---
 #If User is NOT the main applicant then this screen will ask for their relationship to the MA
 question: What is your relationship to the Main Applicant?
@@ -209,7 +210,8 @@ fields:
   - What is the best contact phone number?: migration_main_app_phone_number
   - Passport Country of Issue: migration_main_app_passport
     code: countries_list()
-    required: False
+    default: AU
+    required: True
 ---
 #If the user is NOT the Main Applicant this asks for the Main Applicant's Visa Details
 question: Main Applicant's Visa Details
