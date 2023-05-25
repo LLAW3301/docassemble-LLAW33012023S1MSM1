@@ -13,7 +13,7 @@ subquestion: |
     What is the issue? | ${ wills_estates_options.true_values() }
     First Name | ${ wills_estates_first_name }
     Last Name | ${ wills_estates_last_name }
-    Date of Birth | ${ wills_estates_DOB }
+    Date of Birth | ${ format(wills_estates_DOB, ' dd mmmm yyyy') }
     Best Contact Number | ${ wills_estates_phone_number }
     Email Address | ${ wills_estates_email_address }
   

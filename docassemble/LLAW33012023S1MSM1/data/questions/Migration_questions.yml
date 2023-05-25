@@ -24,7 +24,7 @@ subquestion: |
     Family Members Migrating | ${ migration_user_family_members }
     Current Australian Visa | ${ migration_user_aus_visa }
     Visa Type | ${ migration_user_visa_type }
-    Date of Expiry | ${ migration_user_visa_expiry }
+    Date of Expiry | ${ format_date(migration_user_visa_expiry, format=' dd mmmm yyyy') }
     Purpose of stay in Australia | ${ migration_user_reason_stay }
     %elif is_user_main_applicant == 'No':
     Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
@@ -37,7 +37,7 @@ subquestion: |
     Migrating Family Members | ${ migration_main_app_family_members }
     Current Australian Visa | ${ migration_main_app_aus_visa }
     Visa Type | ${ migration_main_app_visa_type }
-    Date of Expiry | ${ migration_main_app_visa_expiry }
+    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' dd mmmm yyyy') }
     Purpose of stay in Australia | ${ migration_main_app_reason_stay }
     %endif
   
