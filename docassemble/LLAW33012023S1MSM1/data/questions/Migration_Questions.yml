@@ -10,12 +10,39 @@ subquestion: |
   - If you have made a mistake, click the **Restart** button to fix the mistake.
   
   - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal team. A copy of your responses will also be sent to the email address you have provided.
+   
+  <html>
+  <head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+        th:nth-child(1),
+        td:nth-child(1) {
+            width: 50%;
+        }
+        
+        th:nth-child(2),
+        td:nth-child(2) {
+            width: 50%;
+        }
+        
+    </style>
+  </head> 
   
     Questions|Main Applicant's Details
     ---------------|-------------
     %if is_user_main_applicant == 'Yes':
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
-    Date of Birth | ${ format_date(migration_user_DOB, format='dd mmmm yyyy') }
+    Date of Birth | ${ format_date(migration_user_DOB, format=' dd mmmm yyyy') }
     Email Address | ${ migration_user_email_address }
     Current Address | ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
     Country | ${ country_name(migration_user_country) }
@@ -28,7 +55,7 @@ subquestion: |
     Purpose of stay in Australia | ${ migration_user_reason_stay }
     %elif is_user_main_applicant == 'No':
     Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
-    Date of Birth | ${ format_date(migration_main_app_DOB, format='dd mmmm yyyy') }
+    Date of Birth | ${ format_date(migration_main_app_DOB, format=' dd mmmm yyyy') }
     Email Address | ${ migration_main_app_email_address }
     Address | ${ migration_main_app_address } ${ migration_main_app_city } ${ migration_main_app_state } ${ migration_main_app_postcode }
     Country | ${ country_name(migration_main_app_country) }

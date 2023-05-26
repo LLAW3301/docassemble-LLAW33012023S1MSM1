@@ -7,13 +7,30 @@ subquestion: |
   Thank you for using the MSM Online Client Intake Form!
   
   Your responses have now been sent to MSM Legal and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal Team. A copy of your responses will also be sent to the email address you have provided.
+   
+  <html>
+  <head>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        th, td {
+            border: 1px solid black;
+            padding: 8px;
+            text-align: left;
+        }
+        
+    </style>
+  </head> 
   
     Questions Asked|Your Response
     ---------------|-------------
     What is the issue? | ${ wills_estates_options.true_values() }
     First Name | ${ wills_estates_first_name }
     Last Name | ${ wills_estates_last_name }
-    Date of Birth | ${ format(wills_estates_DOB, ' dd mmmm yyyy') }
+    Date of Birth | ${ format_date(wills_estates_DOB, format= ' dd mmmm yyyy ') }
     Best Contact Number | ${ wills_estates_phone_number }
     Email Address | ${ wills_estates_email_address }
   
@@ -84,6 +101,9 @@ review:
   - Revisit: wills_estates_last_name
     button: |
       Your last name is: **${wills_estates_last_name}**
+  - Revisit: wills_estates_DOB
+    button: |
+      You said your Date of Birth was **${wills_estates_DOB}**
   - Revisit: wills_estates_email_address
     button: |
       Your email is: **${wills_estates_email_address}**
