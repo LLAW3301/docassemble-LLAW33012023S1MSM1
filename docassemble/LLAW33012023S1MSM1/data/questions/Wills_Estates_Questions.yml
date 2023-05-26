@@ -56,6 +56,9 @@ fields:
       - I am a named executor and need advice
       - I am a beneficiary and need advice
       - Someone has died without a Will and I need advice
+      - The executor is not sharing a copy of the Will or details of the Estate with me and I need advice
+      - The executor is refusing to lodge an application for probate and I need advice
+      - I have been left out of a Will and I need advice
     none of the above: False
 ---
 # This question block asks the user to fill in their personal information
@@ -127,7 +130,7 @@ content: |
   
   For your reference, please find attached a copy of what we have recieved.
   
-  Should you have any questions or concerns, please do not hesitate to contact us on (08) 81615088 or via email at dh@msmlegal.com.au
+  Should you have any questions or concerns, please do not hesitate to contact us on (08) 8161 5088 or via email at mail@msmlegal.com.au
   
   Kind Regards, 
   
