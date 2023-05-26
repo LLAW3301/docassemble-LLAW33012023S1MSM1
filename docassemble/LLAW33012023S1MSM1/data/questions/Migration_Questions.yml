@@ -50,8 +50,10 @@ subquestion: |
     Passport Country | ${ country_name(migration_user_passport) }
     Family Members Migrating | ${ migration_user_family_members }
     Current Australian Visa | ${ migration_user_aus_visa }
+    %if migration_user_aus_visa == 'Yes':
     Visa Type | ${ migration_user_visa_type }
     Date of Expiry | ${ migration_user_visa_expiry }
+    %endif
     Purpose of stay in Australia | ${ migration_user_reason_stay }
     %elif is_user_main_applicant == 'No':
     Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
