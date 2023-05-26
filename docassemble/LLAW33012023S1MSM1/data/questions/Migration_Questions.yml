@@ -42,7 +42,9 @@ subquestion: |
     ---------------|-------------
     %if is_user_main_applicant == 'Yes':
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
+    %if migration_user_DOB != '':
     Date of Birth | ${ format_date(migration_user_DOB, format=' dd mmmm yyyy') }
+    %endif
     Email Address | ${ migration_user_email_address }
     Current Address | ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
     Country | ${ country_name(migration_user_country) }
@@ -81,8 +83,10 @@ subquestion: |
     
     Questions|Your Matter
     ------------|-------------
-    Purpose of Enquiry | ${ migration_enquiry_purpose.true_values() } 
+    Purpose of Enquiry | ${ migration_enquiry_purpose.true_values() }
+    %if 'Other' in migration_enquiry_purpose.true_values():
     Details | ${ migration_other_purpose }
+    %endif
     You Would Like To See | ${ MSM_fee_earner }
     Appointment Type | ${ appointment_type }
 
@@ -191,16 +195,16 @@ review:
   - Revisit: migration_user_aus_visa
     button: |
       You provided your Current Australian Visa status as **${migration_user_aus_visa}**
-  - Revisit: migration_user_visa_type
-    button: |
-      You provided your Visa Type as **${migration_user_visa_type}**
-  - Revisit: migration_user_visa_expiry
-    button: |
-      You provided your Visa Date of Expiry as **${migration_user_visa_expiry}**
-  - Revisit: migration_user_reason_stay
-    button: |
-      You provided your Purpose of stay in Australia as **${migration_user_reason_stay}**
-  - Revisit : migration_other_purpose
+  #- Revisit: migration_user_visa_type
+  #  button: |
+  #    You provided your Visa Type as **${migration_user_visa_type}**
+  #- Revisit: migration_user_visa_expiry
+  #  button: |
+  #    You provided your Visa Date of Expiry as **${migration_user_visa_expiry}**
+  #- Revisit: migration_user_reason_stay
+  #  button: |
+  #    You provided your Purpose of stay in Australia as **${migration_user_reason_stay}**
+  - Revisit : migration_enquiry_purpose
     button: |
       You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
   - Revisit: MSM_fee_earner
@@ -266,7 +270,7 @@ review:
   - Revisit: migration_main_app_reason_stay
     button: |
       You provided your Purpose of stay in Australia as **${migration_main_app_reason_stay}**
-  - Revisit : migration_other_purpose
+  - Revisit : migration_enquiry_purpose
     button: |
       You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
   - Revisit: MSM_fee_earner
