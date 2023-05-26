@@ -96,7 +96,7 @@ subquestion: |
   There was a problem sending the e-mail.
   % endif
 buttons:
-  - Submit and Exit: exit
+  - Exit: exit
     url: https://www.msmlegal.com.au/
   - Restart: restart
 ---

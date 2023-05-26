@@ -148,3 +148,38 @@ content: |
   To resume your interview, 
   [click here](${ interview_url() }).
 ---
+#This is the flinders attribution code
+default screen parts:
+  post: |
+    <div style="display: flex; height: 200px; align-items: flex-end; flex-direction: row-reverse">
+    <div style="margin: 5px"><img src="https://staff.flinders.edu.au/etc.clientlibs/flinders/clientlibs/clientlib-site/resources/images/flinderuni_main_logo_black.png" height="40">
+    </div>
+    <div style="margin: 5px; text-align: right">
+    <cite><small><i>
+    Developed by Flinders University in collaboration with MSM Legal Pty Ltd
+    </i></small></cite>
+    </div>
+    </div>
+---
+# This code block attributes ownership and sets the name of the interview displayed on the web tab as well as on the app
+metadata:
+  title: |
+    MSM Legal Online Client Intake
+  short title: |
+    MSM Legal
+  description: |
+    A client intake interview
+  authors:
+    - name: Brandon Trimboli
+      organisation: Flinders University
+    - name: Caitlin Driscoll
+      organisation: Flinders University
+    - name: Niamh Keller
+      organisation: Flinders University
+    - name: Paige Bowers
+      organisation: Flinders University
+    - name: Shai Barboza
+      organisation: Flinders University
+    - name: Shelley Toth
+      organisation: Flinders University
+---
