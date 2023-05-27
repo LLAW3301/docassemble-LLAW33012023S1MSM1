@@ -43,7 +43,7 @@ subquestion: |
     %if is_user_main_applicant == 'Yes':
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
     %if migration_user_DOB != '':
-    Date of Birth | ${ format_date(migration_user_DOB, format=' dd mmmm yyyy') }
+    Date of Birth | ${ format_date(migration_user_DOB, format='dd mmmm yyyy') }
     %endif
     Email Address | ${ migration_user_email_address }
     Current Address | ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
@@ -54,12 +54,16 @@ subquestion: |
     Current Australian Visa | ${ migration_user_aus_visa }
     %if migration_user_aus_visa == 'Yes':
     Visa Type | ${ migration_user_visa_type }
-    Date of Expiry | ${ migration_user_visa_expiry }
+    %if migration_user_visa_expiry != '':
+    Date of Expiry | ${ format_date(migration_user_visa_expiry, format='dd mmmm yyyy') }
+    %endif
     %endif
     Purpose of stay in Australia | ${ migration_user_reason_stay }
     %elif is_user_main_applicant == 'No':
     Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
-    Date of Birth | ${ format_date(migration_main_app_DOB, format=' dd mmmm yyyy') }
+    %if migration_main_app_DOB != '':
+    Date of Birth | ${ format_date(migration_main_app_DOB, format='dd mmmm yyyy') }
+    %endif
     Email Address | ${ migration_main_app_email_address }
     Address | ${ migration_main_app_address } ${ migration_main_app_city } ${ migration_main_app_state } ${ migration_main_app_postcode }
     Country | ${ country_name(migration_main_app_country) }
@@ -67,8 +71,12 @@ subquestion: |
     Passport Country | ${ country_name(migration_main_app_passport) }
     Migrating Family Members | ${ migration_main_app_family_members }
     Current Australian Visa | ${ migration_main_app_aus_visa }
+    %if migration_main_app_aus_visa == 'Yes':
     Visa Type | ${ migration_main_app_visa_type }
-    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' dd mmmm yyyy') }
+    %if migration_main_app_visa_expiry != '':
+    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format='dd mmmm yyyy') }
+    %endif
+    %endif
     Purpose of stay in Australia | ${ migration_main_app_reason_stay }
     %endif
   
@@ -131,20 +139,28 @@ question: Please fill out your details below.
 subquestion: |
 fields:
   - First Name: migration_user_first_name
+    default: Jane
   - Last Name: migration_user_last_name
+    default: Chen
   - Date of Birth: migration_user_DOB
     datatype: date
+    default: 01/07/2000
     required: False
   - Email Address: migration_user_email_address
     datatype: email
+    default: jane.chen@applicant.com
   - Current Address: migration_user_address
     required: False
-  - City: migration_user_city
+    default: 41-43 Synnot St
+  - Suburb/City: migration_user_city                        
     required: False
+    default: Adelaide
   - State/Province: migration_user_state
     required: False
+    default: South Australia
   - Postcode/Zip: migration_user_postcode
     required: False
+    default: 5000
   - Country: migration_user_country
     code: countries_list()
     default: AU
@@ -156,6 +172,7 @@ fields:
     code: countries_list()
     show if: migration_user_phone_international
   - What is the best contact phone number?: migration_user_phone_number
+    default: 0491 570 156
 ---
 #This code sets the default country for phone numbers 
 code: |
@@ -319,7 +336,7 @@ subquestion: |
 fields:
   - Passport Country of Issue: migration_user_passport
     code: countries_list()
-    default: AU
+    default: CN
     required: False
 ---
 #If User is NOT the main applicant then this screen will ask for their relationship to the MA
@@ -327,27 +344,36 @@ question: What is your relationship to the Main Applicant?
 fields: 
   - Relationship: user_relationship_with_main_app 
     required: False
+    default: 'Friend'
 ---
 # These questions are asked if the user is NOT the main applicant
 question:  Please fill out the Main Applicant's personal information below.
 subquestion: |
 fields:
   - The Main Applicant's First Name: migration_main_app_first_name
+    default: Basanti 
   - The Main Applicant's Last Name: migration_main_app_last_name
+    default: Deshpande
   - The Main Applicant's Date of Birth: migration_main_app_DOB
     datatype: date
     required: False
+    default: 27/12/2003
   - The Main Applicant's Email Address: migration_main_app_email_address
     datatype: email
     required: False
+    default: basantistudies1@applicant.com
   - The Main Applicant's Current Address: migration_main_app_address
     required: False
-  - City: migration_main_app_city
+    default: Apartment 212, 12 Bank Street
+  - City/Suburb: migration_main_app_city
     required: False
+    default: Adelaide
   - State/Province: migration_main_app_state
     required: False
+    default: South Australia
   - Postcode/Zip: migration_main_app_postcode
     required: False
+    default: 5000
   - Country: migration_main_app_country
     code: countries_list()
     default: AU
@@ -359,9 +385,10 @@ fields:
     code: countries_list()
     show if: migration_main_app_phone_international
   - What is the best contact phone number?: migration_main_app_phone_number
+    default: 0491 570 110
   - Passport Country of Issue: migration_main_app_passport
     code: countries_list()
-    default: AU
+    default: IN
     required: False
 ---
 #If the user is NOT the Main Applicant this asks for the Main Applicant's Visa Details
@@ -377,18 +404,21 @@ fields:
     default: Yes
   - What is the type of Visa held by the Main Applicant?: migration_main_app_visa_type
     required: False
+    default: Temporary Graduate Visa
     show if:
       variable: migration_main_app_aus_visa
       is: Yes
   - When does the Main Applicant's Current Australian Visa expire?: migration_main_app_visa_expiry
     datatype: date
     required: False
+    default: 8/1/2023
     show if:
       variable: migration_main_app_aus_visa
       is: Yes
   - What is the main purpose of the Main Applicant's stay in Australia?: migration_main_app_reason_stay
     datatype: area
     required: False
+    default: 'Working as a junior lawyer at an Adelaide law firm'
 ---
 #If the user is the Main Applicant this asks for their Visa Details
 question: Your Visa Details
@@ -403,11 +433,13 @@ fields:
     default: Yes
   - What type of Visa do you currently hold?: migration_user_visa_type
     required: False
+    default: Temporary Graduate Visa
     show if:
       variable: migration_user_aus_visa
       is: Yes
   - When does your Current Australian Visa expire?: migration_user_visa_expiry
     datatype: date
+    default: 8/1/2023
     required: False
     show if:
       variable: migration_user_aus_visa
@@ -415,6 +447,7 @@ fields:
   - What is the main purpose of your stay in Australia?: migration_user_reason_stay
     datatype: area
     required: False
+    default: Currently working as a nurse at the Royal Adelaide Hospital
 ---
 # This asks what legal issue/s the Main Applicant is seeking advice for 
 question: Purpose of enquiry 
@@ -433,6 +466,7 @@ fields:
       - Citizenship
       - Other
     none of the above: False
+    default: 'To apply for permanent pathway'
   - Please provide details: migration_other_purpose
     datatype: area
     required: False
@@ -451,6 +485,7 @@ fields:
     - Zainab Al-Sweedy
     - Mark Sekerin
     - Let MSM assign someone
+    default: 'Let MSM assign someone'
 ---
 # This question will ask what appointment type the user would like to book.
 Question: What type of appointment would you prefer?
@@ -462,4 +497,5 @@ fields:
     choices:
     - In person
     - Virtual (Zoom)
+    default: 'In person'
 ---
