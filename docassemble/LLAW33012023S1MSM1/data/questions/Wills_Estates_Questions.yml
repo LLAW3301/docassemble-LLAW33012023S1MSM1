@@ -30,7 +30,7 @@ subquestion: |
     What is the issue? | ${ wills_estates_options.true_values() }
     First Name | ${ wills_estates_first_name }
     Last Name | ${ wills_estates_last_name }
-    Date of Birth | ${ format_date(wills_estates_DOB, format= ' dd mmmm yyyy ') }
+    Date of Birth | ${ format_date(wills_estates_DOB, format='dd mmmm yyyy ') }
     Best Contact Number | ${ wills_estates_phone_number }
     Email Address | ${ wills_estates_email_address }
   
@@ -60,6 +60,9 @@ fields:
       - The executor is refusing to lodge an application for probate and I need advice
       - I have been left out of a Will and I need advice
     none of the above: False
+  - Please upload any relevant documents if you have them: wills_estates_user_documents 
+    datatype: files
+    required: False
 ---
 # This question block asks the user to fill in their personal information
 question: Personal Information
@@ -113,11 +116,16 @@ review:
   - Revisit: wills_estates_options
     button: |
       Legal issue/s; **${wills_estates_options.true_values()}**
+  - Revisit: wills_estates_user_documents
+    button: |
+      Your Documents;
+      
+      ${wills_estates_user_documents}
 continue button field: WE_review_answers
 ---
 # this code block runs the email function for the wills and estates path
 code: |
-  wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills])
+  wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills] + [wills_estates_user_documents])
 ---
 #this is the email template that the user recieves for the wills and estates path
 template: notification

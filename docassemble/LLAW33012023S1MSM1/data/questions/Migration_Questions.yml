@@ -37,7 +37,7 @@ subquestion: |
         
     </style>
   </head> 
-  
+    
     Questions|Main Applicant's Details
     ---------------|-------------
     %if is_user_main_applicant == 'Yes':
@@ -69,7 +69,7 @@ subquestion: |
     Current Australian Visa | ${ migration_main_app_aus_visa }
     Visa Type | ${ migration_main_app_visa_type }
     Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' dd mmmm yyyy') }
-    Purpose of stay in Australia | ${ migration_main_app_reason_stay }
+    Purpose of stay in Australia | ${ single_paragraph(migration_main_app_reason_stay) }
     %endif
   
     %if is_user_main_applicant == 'No':
@@ -85,7 +85,7 @@ subquestion: |
     ------------|-------------
     Purpose of Enquiry | ${ migration_enquiry_purpose.true_values() }
     %if 'Other' in migration_enquiry_purpose.true_values():
-    Details | ${ migration_other_purpose }
+    Details | ${ single_paragraph(migration_other_purpose) }
     %endif
     You Would Like To See | ${ MSM_fee_earner }
     Appointment Type | ${ appointment_type }
@@ -207,6 +207,11 @@ review:
   - Revisit : migration_enquiry_purpose
     button: |
       You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
+  - Revisit: migration_user_documents
+    button: |
+      Your Documents;
+      
+      ${migration_user_documents}
   - Revisit: MSM_fee_earner
     button: |
       You mentioned that you would like to see **${MSM_fee_earner}**
@@ -273,6 +278,11 @@ review:
   - Revisit : migration_enquiry_purpose
     button: |
       You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
+  - Revisit: migration_user_documents
+    button: |
+      Your Documents;
+      
+      ${migration_user_documents}
   - Revisit: MSM_fee_earner
     button: |
       You mentioned that you would like to see **${MSM_fee_earner}**
@@ -283,7 +293,7 @@ continue button field: M_main_app_review_answers
 ---
 #This code block sends the email to the user for the migration path
 code: |
-  migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=[MSM_Legal_Answer_Template_Migration])
+  migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=[MSM_Legal_Answer_Template_Migration] + [migration_user_documents])
 ---
 #This is the email template for the migration path email that the user will recieve
 template: migration_notification
@@ -413,7 +423,7 @@ fields:
       variable: migration_user_aus_visa
       is: Yes
   - What is the main purpose of your stay in Australia?: migration_user_reason_stay
-    datatype: area
+    datatype: area  
     required: False
 ---
 # This asks what legal issue/s the Main Applicant is seeking advice for 
@@ -437,6 +447,9 @@ fields:
     datatype: area
     required: False
     show if: migration_enquiry_purpose['Other']
+  - Please upload any relevant documents if you have them: migration_user_documents 
+    datatype: files
+    required: False
 ---
 #This question gives migration users the option to choose which fee earner they would like to see
 question: Which lawyer/migration agent you would like to see?
