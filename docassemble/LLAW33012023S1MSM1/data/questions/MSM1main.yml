@@ -80,7 +80,7 @@ fields:
     show if:
       variable: ESLquestion
       is: Yes
-  - Is a translator required for appointments?: is_interpreter_needed
+  - Do you need a translator?: is_interpreter_needed
     datatype: radio
     choices:
       - Yes
