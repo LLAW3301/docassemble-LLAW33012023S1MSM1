@@ -65,7 +65,7 @@ buttons:
 ---
 #This is the ESL question
 question: |
-  Do you speak a language other than English?
+  Do you speak a language other than English as your native language?
 fields:
   - no label: ESLquestion
     datatype: radio

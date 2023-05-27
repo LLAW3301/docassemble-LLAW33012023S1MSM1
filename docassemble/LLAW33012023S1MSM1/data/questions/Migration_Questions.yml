@@ -9,7 +9,7 @@ subquestion: |
   
   - If you have made a mistake, click the **Restart** button to fix the mistake.
   
-  - If you are satisfied with the information you have provided, click **Submit and Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal team. A copy of your responses will also be sent to the email address you have provided.
+  - If you are satisfied with the information you have provided, click **Exit** and you will be contacted as soon as possible to organise an appointment time with a member of the MSM Legal team. A copy of your responses will also be sent to the email address you have provided.
    
   <html>
   <head>
@@ -109,30 +109,40 @@ buttons:
   - Restart: restart
 ---
 #This is the first question of the migration path - asks if the user is the main applicant
-question: Are you the Main Applicant?
+question: |
+  Are you the {Main Applicant}?
 subquestion: |
 field: is_user_main_applicant
 buttons:
   - 'Yes'
   - 'No'
+terms:
+  Main Applicant: |
+    The Main Applicant is the main person needing help with their visa or other migration issue.
 ---
 #If user is the Main Applicant this screen shall ask if there are any family members applying/migrating with them - this is where the loop may come in handy
 question: Family Members
 subquestion: |
-  Do you have any **family members** who will be migrating with you?
+  Do you have any **{family members}** who will be migrating with you?
 field: migration_user_family_members
 buttons:
   - "Yes"
   - "No"
+terms:
+  family members: |
+    Family members means any person related to you. 
 ---
 #If user is NOT the Main Applicant this screen shall ask if there are any family members applying/migrating with the Main Applicant - this is where the loop may come in handy
 question: Family Members
 subquestion: |
-  Does the Main Applicant have any **family members** who will be migrating with them?
+  Does the Main Applicant have any **{family members}** who will be migrating with them?
 field: migration_main_app_family_members
 buttons:
   - "Yes"
   - "No"
+terms:
+  family members: |
+    Family members means any person related to you. 
 ---
 #If the user is the main applicant this will ask for their personal details 
 question: Please fill out your details below.
@@ -179,7 +189,6 @@ code: |
   if not migration_user_phone_international:
     migration_user_phone_country = 'Aus'
 ---
-# We're creating a question block here
 # Review the user's first name, last name and email
 skip undefined: False
 question: |
@@ -331,13 +340,17 @@ attachment:
       - pdf
 ---
 #This will ask the user for the country of issue for their passport - it is separate from the rest of the information so it will not be asked if the user is NOT the Main Applicant
-question: Main Applicant's Passport Information
+question: |
+  {Main Applicant}'s Passport Information
 subquestion: |
 fields:
   - Passport Country of Issue: migration_user_passport
     code: countries_list()
     default: CN
     required: False
+terms:
+  Main Applicant: |
+    The Main Applicant is the main person needing help with their visa or other migration issue.
 ---
 #If User is NOT the main applicant then this screen will ask for their relationship to the MA
 question: What is your relationship to the Main Applicant?
@@ -396,7 +409,7 @@ question: Main Applicant's Visa Details
 subquestion: |
   Please fill out the Main Applicant's Visa Details below.
 fields:
-  - Does the Main Applicant hold a Current Australian Visa?: migration_main_app_aus_visa
+  - Does the Main Applicant hold a {Current Australian Visa}?: migration_main_app_aus_visa
     datatype: radio
     choices:
       - Yes
@@ -415,17 +428,22 @@ fields:
     show if:
       variable: migration_main_app_aus_visa
       is: Yes
-  - What is the main purpose of the Main Applicant's stay in Australia?: migration_main_app_reason_stay
+  - What is the {main purpose} of the Main Applicant's stay in Australia?: migration_main_app_reason_stay
     datatype: area
     required: False
     default: 'Working as a junior lawyer at an Adelaide law firm'
+terms:
+  Current Australian Visa: |
+    A visa which has not expired.
+  main purpose: |
+    The main reason for the Main Applicant's stay in Australia
 ---
 #If the user is the Main Applicant this asks for their Visa Details
 question: Your Visa Details
 subquestion: |
   Please fill out your Visa Details below.
 fields:
-  - Do you hold a Current Australian Visa?: migration_user_aus_visa
+  - Do you hold a {Current Australian Visa}?: migration_user_aus_visa
     datatype: radio
     choices:
       - Yes
@@ -444,10 +462,15 @@ fields:
     show if:
       variable: migration_user_aus_visa
       is: Yes
-  - What is the main purpose of your stay in Australia?: migration_user_reason_stay
+  - What is the {main purpose} of your stay in Australia?: migration_user_reason_stay
     datatype: area
     required: False
     default: Currently working as a nurse at the Royal Adelaide Hospital
+terms:
+  Current Australian Visa: |
+    A visa which has not expired.
+  main purpose: |
+    The reason for your stay in Australia.
 ---
 # This asks what legal issue/s the Main Applicant is seeking advice for 
 question: Purpose of enquiry 
