@@ -43,7 +43,7 @@ subquestion: |
     %if is_user_main_applicant == 'Yes':
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
     %if migration_user_DOB != '':
-    Date of Birth | ${ format_date(migration_user_DOB, format=' dd mmmm yyyy') }
+    Date of Birth | ${ format_date(migration_user_DOB, format=' d MMMM YYYY') }
     %endif
     Email Address | ${ migration_user_email_address }
     Current Address | ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
@@ -59,7 +59,7 @@ subquestion: |
     Purpose of stay in Australia | ${ migration_user_reason_stay }
     %elif is_user_main_applicant == 'No':
     Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
-    Date of Birth | ${ format_date(migration_main_app_DOB, format=' dd mmmm yyyy') }
+    Date of Birth | ${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }
     Email Address | ${ migration_main_app_email_address }
     Address | ${ migration_main_app_address } ${ migration_main_app_city } ${ migration_main_app_state } ${ migration_main_app_postcode }
     Country | ${ country_name(migration_main_app_country) }
@@ -68,7 +68,7 @@ subquestion: |
     Migrating Family Members | ${ migration_main_app_family_members }
     Current Australian Visa | ${ migration_main_app_aus_visa }
     Visa Type | ${ migration_main_app_visa_type }
-    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' dd mmmm yyyy') }
+    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' d MMMM YYYY') }
     Purpose of stay in Australia | ${ single_paragraph(migration_main_app_reason_stay) }
     %endif
   
@@ -233,6 +233,9 @@ review:
   - Revisit: migration_user_email_address
     button: |
       You provided your email as **${migration_user_email_address}**
+  - Revisit: migration_user_DOB
+    button: |
+      You said your Date of Birth was **${migration_user_DOB}**
   - Revisit: migration_user_phone_number
     button: |
       You provided your phone number as **${migration_user_phone_number}**
