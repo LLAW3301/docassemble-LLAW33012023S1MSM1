@@ -60,6 +60,7 @@ fields:
       - The executor is refusing to lodge an application for probate and I need advice
       - I have been left out of a Will and I need advice
     none of the above: False
+    default: 'I would like to discuss a new Will, Advance Care Directive, or Power of Attorney'
 ---
 # This question block asks the user to fill in their personal information
 question: Personal Information
@@ -67,11 +68,16 @@ subquestion: |
   Please fill out the personal information.
 fields:
   - First Name: wills_estates_first_name
+    default: Zoila
   - Last Name: wills_estates_last_name
+    default: Kautzer
   - Date of Birth: wills_estates_DOB
     datatype: date
+    default: 21/06/1984
+    required: False
   - Email Address: wills_estates_email_address
     datatype: email
+    default: kautzerfamily@applicant.com
   - Is your mobile based in Australia?: phone_international
     datatype: noyesradio
     default: False
@@ -79,6 +85,9 @@ fields:
     code: countries_list()
     show if: phone_international
   - What is your phone number?: wills_estates_phone_number
+    default: 8523 1633
+    help: |
+      E.g. 0491 579 455
 ---
 # This code sets the default country for the users phone number
 code: |
@@ -117,7 +126,7 @@ continue button field: WE_review_answers
 ---
 # this code block runs the email function for the wills and estates path
 code: |
-  wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills])
+  wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['kell0481@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills])
 ---
 #this is the email template that the user recieves for the wills and estates path
 template: notification
