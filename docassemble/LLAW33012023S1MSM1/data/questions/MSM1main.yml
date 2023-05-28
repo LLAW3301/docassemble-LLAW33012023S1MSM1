@@ -188,3 +188,11 @@ metadata:
     - name: Shelley Toth
       organisation: Flinders University
 ---
+#This code block disables the right side menu
+features:
+  hide standard menu: True
+---
+#This code block disables the debug feature
+features:
+  debug: False
+---

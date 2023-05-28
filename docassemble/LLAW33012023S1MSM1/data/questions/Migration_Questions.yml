@@ -134,7 +134,6 @@ field: migration_user_family_members
 buttons:
   - "Yes"
   - "No"
-
 ---
 #If user is NOT the Main Applicant this screen shall ask if there are any family members applying/migrating with the Main Applicant - this is where the loop may come in handy
 question: Family Members
@@ -433,6 +432,8 @@ fields:
   - Please upload any relevant documents: migration_user_documents 
     datatype: files
     required: False
+    help: |
+      eg. Current Visa, Passport, Visa refusal documents, evidence of academic/trade qualifications, resume, or any letters from the Department of Home Affairs
 ---
 #This question gives migration users the option to choose which fee earner they would like to see
 question: Which lawyer/migration agent you would like to see?
