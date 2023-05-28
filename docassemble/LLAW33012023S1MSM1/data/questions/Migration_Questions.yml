@@ -40,12 +40,12 @@ subquestion: |
     Questions|Main Applicant's Details
     ---------------|-------------
     %if is_user_main_applicant == 'Yes':
-    Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
+    Full Name | ${ migration_user_first_name } ${migration_user_given_name} ${ migration_user_last_name }
     %if migration_user_DOB != '':
     Date of Birth | ${ format_date(migration_user_DOB, format=' d MMMM YYYY') }
     %endif
     Email Address | ${ migration_user_email_address }
-    Current Address | ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
+    Current Address | ${ migration_user_unit_apartment } ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
     Country | ${ country_name(migration_user_country) }
     Phone Number | ${ migration_user_phone_number }
     Passport Country | ${ country_name(migration_user_passport) }
@@ -59,12 +59,12 @@ subquestion: |
     %endif
     Purpose of stay in Australia | ${ single_paragraph(migration_user_reason_stay) }
     %elif is_user_main_applicant == 'No':
-    Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
+    Full Name | ${ migration_main_app_first_name } ${ migration_main_app_given_name } ${ migration_main_app_last_name }
     %if migration_main_app_DOB != '':
     Date of Birth | ${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }
     %endif
     Email Address | ${ migration_main_app_email_address }
-    Address | ${ migration_main_app_address } ${ migration_main_app_city } ${ migration_main_app_state } ${ migration_main_app_postcode }
+    Address | ${migration_main_app_unit_apartment} ${ migration_main_app_address } ${ migration_main_app_city } ${ migration_main_app_state } ${ migration_main_app_postcode }
     Country | ${ country_name(migration_main_app_country) }
     Phone Number | ${ migration_main_app_phone_number }
     Passport Country | ${ country_name(migration_main_app_passport) }
@@ -84,7 +84,7 @@ subquestion: |
     Questions|Your Details
     ------------|-------------
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
-    Email Address | ${ migration_user_email_address } 
+    Email Address | ${ migration_user_email_address }
     Phone Number | ${ migration_user_phone_number }
     Relationship to Main Applicant | ${ user_relationship_with_main_app }
     %endif
@@ -133,7 +133,7 @@ buttons:
 #If user is NOT the Main Applicant this screen shall ask if there are any family members applying/migrating with the Main Applicant - this is where the loop may come in handy
 question: Family Members
 subquestion: |
-  Does the main applicant have any family coming with them?
+  Does the Main Applicant have any family coming with them?
 field: migration_main_app_family_members
 buttons:
   - "Yes"
@@ -145,6 +145,8 @@ subquestion: |
 fields:
   - First Name: migration_user_first_name
     default: Jane
+  - Other Given Name(s): migration_user_given_name
+    required: False
   - Last Name: migration_user_last_name
     default: Chen
   - Date of Birth: migration_user_DOB
@@ -158,7 +160,11 @@ fields:
     required: False
     default: 41-43 Synnot St
     help: |
-      E.g. Unit 1 123 Applicant Street
+      E.g. 123 Applicant Street
+  - Unit/Apartment: migration_user_unit_apartment
+    required: False
+    help: |
+      E.g., Unit 12, Apartment 6
   - Suburb/City: migration_user_city                        
     required: False
     default: Adelaide
@@ -194,137 +200,6 @@ code: |
   if not migration_user_phone_international:
     migration_user_phone_country = 'Aus'
 ---
-# Review the user's first name, last name and email
-skip undefined: False
-question: |
-  Revist your answers before you email them
-review:
-  - Revisit: migration_user_first_name
-    button: |
-      You said your first name was **${migration_user_first_name}**
-  - Revisit: migration_user_last_name
-    button: |
-      You said your last name was **${migration_user_last_name}**
-  - Revisit: migration_user_DOB
-    button: |
-      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY')}**
-  - Revisit: migration_user_email_address
-    button: |
-      You provided your email as **${migration_user_email_address}**
-  - Revisit: migration_user_address
-    button: |
-      You said your Current Address was **${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }, ${ country_name(migration_user_country) }**
-  - Revisit: migration_user_phone_number
-    button: |
-      You provided your phone number as **${migration_user_phone_number}**
-  - Revisit: migration_user_passport
-    button: |
-      You provided your Passport Country as **${country_name(migration_user_passport)}**
-  - Revisit: migration_user_family_members
-    button: |
-      You provided your Family Members Migrating as **${migration_user_family_members}**
-  - Revisit: migration_user_aus_visa
-    button: |
-      You provided your Current Australian Visa status as **${migration_user_aus_visa}**
-  #- Revisit: migration_user_visa_type
-  #  button: |
-  #    You provided your Visa Type as **${migration_user_visa_type}**
-  #- Revisit: migration_user_visa_expiry
-  #  button: |
-  #    You provided your Visa Date of Expiry as **${migration_user_visa_expiry}**
-  #- Revisit: migration_user_reason_stay
-  #  button: |
-  #    You provided your Purpose of stay in Australia as **${migration_user_reason_stay}**
-  - Revisit : migration_enquiry_purpose
-    button: |
-      You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
-  - Revisit: migration_user_documents
-    button: |
-      Your Documents;
-      
-      ${migration_user_documents}
-  - Revisit: MSM_fee_earner
-    button: |
-      You mentioned that you would like to see **${MSM_fee_earner}**
-  - Revisit: appointment_type
-    button: |
-      You mentioned that you would like to meet **${appointment_type}**
-continue button field: M_user_review_answers
----
-skip undefined: False
-question: |
-  Revist your answers before you email them
-review:
-  - Revisit: migration_user_first_name
-    button: |
-      You said your first name was **${migration_user_first_name}**
-  - Revisit: migration_user_last_name
-    button: |
-      You said your last name was **${migration_user_last_name}**
-  - Revisit: migration_user_email_address
-    button: |
-      You provided your email as **${migration_user_email_address}**
-  - Revisit: migration_user_DOB
-    button: |
-      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY') }**
-  - Revisit: migration_user_phone_number
-    button: |
-      You provided your phone number as **${migration_user_phone_number}**
-  - Revisit: user_relationship_with_main_app
-    button: |
-      You said your were **${user_relationship_with_main_app}** to the Main Applicant
-  - Revisit: migration_main_app_first_name
-    button: |
-      You said the Main Applicant's first name was **${migration_main_app_first_name}**
-  - Revisit: migration_main_app_last_name
-    button: |
-      You said the Main Applicant's last name was **${migration_main_app_last_name}**
-  - Revisit: migration_main_app_DOB
-    button: |
-      You said the Main Applicant's Date of Birth was **${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }**
-  - Revisit: migration_main_app_email_address
-    button: |
-      You provided the Main Applicant's as **${migration_main_app_email_address}**
-  - Revisit: migration_main_app_address
-    button: |
-      You said the Main Applicant's Current Address was **${migration_main_app_address} ${migration_main_app_city} ${migration_main_app_state} ${migration_main_app_postcode}, ${country_name(migration_main_app_country)}**
-  - Revisit: migration_main_app_phone_number
-    button: |
-      You provided the Main Applicant's phone number as **${migration_main_app_phone_number}**
-  - Revisit: migration_main_app_passport
-    button: |
-      You provided your Passport Country as **${country_name(migration_main_app_passport)}**
-  - Revisit: migration_main_app_family_members
-    button: |
-      You provided your Family Members Migrating as **${migration_main_app_family_members}**
-  - Revisit: migration_main_app_aus_visa
-    button: |
-      You provided your Current Australian Visa status as **${migration_main_app_aus_visa}**
-  - Revisit: migration_main_app_visa_type
-    button: |
-      You provided your Visa Type as **${migration_main_app_visa_type}**
-  - Revisit: migration_main_app_visa_expiry
-    button: |
-      You provided your Visa Date of Expiry as **${ format_date(migration_main_app_visa_expiry, format=' d MMMM YYYY') }**
-  - Revisit: migration_main_app_reason_stay
-    button: |
-      You provided your Purpose of stay in Australia as **${migration_main_app_reason_stay}**
-  - Revisit : migration_enquiry_purpose
-    button: |
-      You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
-  - Revisit: migration_user_documents
-    button: |
-      Your Documents;
-      
-      ${migration_user_documents}
-  - Revisit: MSM_fee_earner
-    button: |
-      You mentioned that you would like to see **${MSM_fee_earner}**
-  - Revisit: appointment_type
-    button: |
-      You mentioned that you would like to meet **${appointment_type}**
-continue button field: M_main_app_review_answers
----
 #This creates a DAList to attach the users uploaded documents for the migration path
 objects:
   - migration_documents_to_send: DAList.using(auto_gather = False)
@@ -338,9 +213,9 @@ code:  |
 #This code block sends the email to the user for the migration path
 code: |
   if migration_user_documents != None:
-    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=migration_documents_to_send)
+    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['kell0481@flinders.edu.au'], template=migration_notification, attachments=migration_documents_to_send)
   else: 
-    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=MSM_Legal_Answer_Template_Migration)
+    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['kell0481@flinders.edu.au'], template=migration_notification, attachments=MSM_Legal_Answer_Template_Migration)
 ---
 #This is the email template for the migration path email that the user will recieve
 template: migration_notification
@@ -379,7 +254,6 @@ fields:
     code: countries_list()
     default: CN
     required: False
-
 ---
 #If User is NOT the main applicant then this screen will ask for their relationship to the MA
 question: How are you related to the Main Applicant?
@@ -387,7 +261,7 @@ fields:
   - Relationship: user_relationship_with_main_app 
     required: False
     hint: |
-       e.g friend, child
+       e.g Friend, Child
 ---
 # These questions are asked if the user is NOT the main applicant
 question:  Please fill out the {Main Applicant}'s personal information below.
@@ -395,6 +269,8 @@ subquestion: |
 fields:
   - Their First Name: migration_main_app_first_name
     default: Basanti 
+  - Other Given Name(s): migration_main_app_given_name
+    required: False
   - Their Last Name: migration_main_app_last_name
     default: Deshpande
   - Their Date of Birth: migration_main_app_DOB
@@ -407,9 +283,14 @@ fields:
     default: basantistudies1@applicant.com
   - Their Current Address: migration_main_app_address
     required: False
-    default: Apartment 212, 12 Bank Street
+    default: 12 Bank Street
     help: |
-      E.g. Unit 1 123 Applicant Street
+      E.g. 123 Applicant Street
+  - Their Unit/Apartment: migration_main_app_unit_apartment
+    required: False
+    default: Apartment 212
+    help: |
+      E.g., Unit 12, Apartment 6
   - City/Suburb: migration_main_app_city
     required: False
     default: Adelaide
@@ -543,7 +424,7 @@ fields:
     datatype: area
     required: False
     show if: migration_enquiry_purpose['Other']
-  - Please upload any relevant documents if you have them: migration_user_documents 
+  - Please upload any relevant documents: migration_user_documents 
     datatype: files
     required: False
 ---
@@ -573,4 +454,126 @@ fields:
     - In person
     - Virtual (Zoom)
     default: 'In person'
+---
+# Review the user's first name, last name and email
+skip undefined: False
+question: |
+  Revist your answers before you email them
+review:
+  - Revisit: migration_user_first_name
+    button: |
+      You said your Name was **${ migration_user_first_name } ${ migration_user_given_name } ${ migration_user_last_name }**
+  - Revisit: migration_user_DOB
+    button: |
+      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY')}**
+  - Revisit: migration_user_email_address
+    button: |
+      You provided your Email as **${migration_user_email_address}**
+  - Revisit: migration_user_address
+    button: |
+      You said your Current Address was **${ migration_user_unit_apartment } ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }, ${ country_name(migration_user_country) }**
+  - Revisit: migration_user_phone_number
+    button: |
+      You provided your Contact Number as **${migration_user_phone_number}**
+  - Revisit: migration_user_passport
+    button: |
+      You provided your Passport Country as **${country_name(migration_user_passport)}**
+  - Revisit: migration_user_family_members
+    button: |
+      You provided your Family Members Migrating as **${migration_user_family_members}**
+  - Revisit: migration_user_aus_visa
+    button: |
+      You provided your Australian Visa Status as **${migration_user_aus_visa}**
+  - Revisit: migration_user_visa_type
+    button: |
+      You provided your Visa Type as **${migration_user_visa_type}**
+  - Revisit: migration_user_visa_expiry
+    button: |
+      You provided your Visa Date of Expiry as **${migration_user_visa_expiry}**
+  - Revisit: migration_user_reason_stay
+    button: |
+      You provided your Purpose of stay in Australia as **${migration_user_reason_stay}**
+  - Revisit : migration_enquiry_purpose
+    button: |
+      You mentioned that your Purpose of Enquiry was **${migration_enquiry_purpose.true_values()}**
+  - Revisit: migration_user_documents
+    button: |
+      Your Documents
+      
+      ${migration_user_documents}
+  - Revisit: MSM_fee_earner
+    button: |
+      You mentioned that you would like to see **${MSM_fee_earner}**
+  - Revisit: appointment_type
+    button: |
+      You mentioned that you would like to meet **${appointment_type}**
+continue button field: M_user_review_answers
+---
+skip undefined: False
+question: |
+  Revist your answers before you email them
+review:
+  - Revisit: migration_user_first_name
+    button: |
+      You said your Name was **${migration_user_first_name} ${migration_user_given_name} ${migration_user_last_name}**
+  - Revisit: migration_user_email_address
+    button: |
+      You provided your Email as **${migration_user_email_address}**
+  - Revisit: migration_user_DOB
+    button: |
+      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY') }**
+  - Revisit: migration_user_phone_number
+    button: |
+      You provided your Contact Number as **${migration_user_phone_number}**
+  - Revisit: user_relationship_with_main_app
+    button: |
+      You said your Relationship to the Main Applicant was **${user_relationship_with_main_app}**
+  - Revisit: migration_main_app_first_name
+    button: |
+      You said the Main Applicant's Name was **${migration_main_app_first_name} ${migration_main_app_given_name} ${migration_main_app_last_name}**
+  - Revisit: migration_main_app_DOB
+    button: |
+      You said the Main Applicant's Date of Birth was **${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }**
+  - Revisit: migration_main_app_email_address
+    button: |
+      You provided the Main Applicant's Email as **${migration_main_app_email_address}**
+  - Revisit: migration_main_app_address
+    button: |
+      You said the Main Applicant's Current Address was ** ${migration_main_app_unit_apartment} ${migration_main_app_address} ${migration_main_app_city} ${migration_main_app_state} ${migration_main_app_postcode}, ${country_name(migration_main_app_country)}**
+  - Revisit: migration_main_app_phone_number
+    button: |
+      You provided the Main Applicant's Contact Number as **${migration_main_app_phone_number}**
+  - Revisit: migration_main_app_passport
+    button: |
+      You provided the Main Applicant's Passport Country as **${country_name(migration_main_app_passport)}**
+  - Revisit: migration_main_app_family_members
+    button: |
+      You provided the Main Applicant's Family Members Migrating as **${migration_main_app_family_members}**
+  - Revisit: migration_main_app_aus_visa
+    button: |
+      You provided Main Applicant's Australian Visa Status as **${migration_main_app_aus_visa}**
+  - Revisit: migration_main_app_visa_type
+    button: |
+      You provided the Main Applicant's Visa Type as **${migration_main_app_visa_type}**
+  - Revisit: migration_main_app_visa_expiry
+    button: |
+      You provided the Main Applicant's Visa Date of Expiry as **${ format_date(migration_main_app_visa_expiry, format=' d MMMM YYYY') }**
+  - Revisit: migration_main_app_reason_stay
+    button: |
+      You provided the Main Applicant's Purpose of Stay in Australia as **${migration_main_app_reason_stay}**
+  - Revisit : migration_enquiry_purpose
+    button: |
+      You mentioned that the Purpose of Enquiry was **${migration_enquiry_purpose.true_values()}**
+  - Revisit: migration_user_documents
+    button: |
+      Your Documents
+      
+      ${migration_user_documents}
+  - Revisit: MSM_fee_earner
+    button: |
+      You mentioned that you would like to see **${MSM_fee_earner}**
+  - Revisit: appointment_type
+    button: |
+      You mentioned that you would like to meet **${appointment_type}**
+continue button field: M_main_app_review_answers
 ---

@@ -29,10 +29,14 @@ subquestion: |
     ---------------|-------------
     What is the issue? | ${ wills_estates_options.true_values() }
     First Name | ${ wills_estates_first_name }
+    Other Given Name(s) | ${ wills_estates_given_name }
     Last Name | ${ wills_estates_last_name }
     Date of Birth | ${ format_date(wills_estates_DOB, format=' d MMMM YYYY') }
     Best Contact Number | ${ wills_estates_phone_number }
     Email Address | ${ wills_estates_email_address }
+    % if wills_estates_other_party_yesno == 'Yes':
+    Other Party | ${ wills_estates_other_party_name }
+    %endif
   
   % if wills_estates_email_sent_ok:
   Once again, thank you for contacting MSM Legal, and we look forward to speaking with you soon. 
@@ -72,6 +76,8 @@ subquestion: |
 fields:
   - First Name: wills_estates_first_name
     default: Zoila
+  - Other Given Name(s): wills_estates_given_name
+    required: False
   - Last Name: wills_estates_last_name
     default: Kautzer
   - Date of Birth: wills_estates_DOB
@@ -81,13 +87,13 @@ fields:
   - Email Address: wills_estates_email_address
     datatype: email
     default: kautzerfamily@applicant.com
-  - Is your mobile based in Australia?: phone_international
+  - Is your best contact phone number based in Australia?: phone_international
     datatype: noyesradio
     default: False
-  - What country is associated with your phone number?: phone_country
+  - What country is associated with your best contact phone number?: phone_country
     code: countries_list()
     show if: phone_international
-  - What is your phone number?: wills_estates_phone_number
+  - What is your best contact phone number?: wills_estates_phone_number
     default: 8523 1633
     help: |
       E.g. 0491 579 455
@@ -96,6 +102,24 @@ fields:
 code: |
   if not phone_international:
     phone_country = 'Aus'
+---
+#This block asks if there are any other parties involved in the dispute/matter
+question: |
+  Other Party Details 
+fields:
+  - Is there any Other Party involved in the matter?: wills_estates_other_party_yesno
+    datatype: radio
+    default: 'No'
+    choices: 
+      - Yes
+      - No
+  - Please provide their Full Name: wills_estates_other_party_name
+    required: False
+    show if:
+      variable: wills_estates_other_party_yesno
+      is: 'Yes'
+    help: |
+      MSM Legal require this information to check for any conflicts of interest.
 ---
 #This is the review question block for the wills and estates path 
 skip undefined: False
@@ -112,24 +136,27 @@ subquestion: |
 review:
   - Revisit: wills_estates_first_name
     button: |
-      Your first name is: **${wills_estates_first_name}**
-  - Revisit: wills_estates_last_name
-    button: |
-      Your last name is: **${wills_estates_last_name}**
+      You said your Name was **${wills_estates_first_name} ${wills_estates_given_name} ${wills_estates_last_name}**
   - Revisit: wills_estates_DOB
     button: |
       You said your Date of Birth was **${format_date(wills_estates_DOB, format=' d MMMM YYYY') }**
+  - Revisit: wills_estates_phone_number
+    button: |
+      You provided your Phone Number as **${wills_estates_phone_number}**
   - Revisit: wills_estates_email_address
     button: |
-      Your email is: **${wills_estates_email_address}**
+      You provided your Email as **${wills_estates_email_address}**
   - Revisit: wills_estates_options
     button: |
-      Legal issue/s; **${wills_estates_options.true_values()}**
+      You mentioned that your Purpose of Enquiry was **${wills_estates_options.true_values()}**
   - Revisit: wills_estates_user_documents
     button: |
-      Your Documents;
+      Your Documents
       
       ${wills_estates_user_documents}
+  - Revisit: wills_estates_other_party_yesno
+    button: |
+      You provided Other Party as **${wills_estates_other_party_yesno}** 
 continue button field: WE_review_answers
 ---
 #This creates a DAList to attach the users uploaded documents for the wills and estates path
@@ -145,9 +172,9 @@ code:  |
 # this code block runs the email function for the wills and estates path
 code: |
   if wills_estates_user_documents != None:
-    wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=wills_estates_documents_to_send)
+    wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['kell0481@flinders.edu.au'], template=notification, attachments=wills_estates_documents_to_send)
   else:
-    wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=MSM_Legal_Answer_Template_Wills)
+    wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['kell0481@flinders.edu.au'], template=notification, attachments=MSM_Legal_Answer_Template_Wills)
 ---
 #this is the email template that the user recieves for the wills and estates path
 template: notification
