@@ -109,7 +109,7 @@ review:
       Your last name is: **${wills_estates_last_name}**
   - Revisit: wills_estates_DOB
     button: |
-      You said your Date of Birth was **${wills_estates_DOB}**
+      You said your Date of Birth was **${format_date(wills_estates_DOB, format=' d MMMM YYYY') }**
   - Revisit: wills_estates_email_address
     button: |
       Your email is: **${wills_estates_email_address}**
@@ -123,9 +123,19 @@ review:
       ${wills_estates_user_documents}
 continue button field: WE_review_answers
 ---
+#This creates a DAList to attach the users uploaded documents for the wills and estates path
+objects:  
+  - wills_estates_documents_to_send:  DAList.using(auto_gather = False)  
+---
+#This code block controls the documents to be sent via email to the user and MSM Legal for the wills and estates path
+code:  | 
+  wills_estates_documents_to_send.append(MSM_Legal_Answer_Template_Wills)
+  wills_estates_documents_to_send.append(wills_estates_user_documents)
+  wills_estates_documents_to_send.gathered=True
+---
 # this code block runs the email function for the wills and estates path
 code: |
-  wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=[MSM_Legal_Answer_Template_Wills] + [wills_estates_user_documents])
+  wills_estates_email_sent_ok = send_email(to=wills_estates_email_address,bcc=['shai.barboza@flinders.edu.au'], template=notification, attachments=wills_estates_documents_to_send)
 ---
 #this is the email template that the user recieves for the wills and estates path
 template: notification

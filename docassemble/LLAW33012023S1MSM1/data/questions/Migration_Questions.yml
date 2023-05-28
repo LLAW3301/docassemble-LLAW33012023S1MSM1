@@ -54,7 +54,7 @@ subquestion: |
     Current Australian Visa | ${ migration_user_aus_visa }
     %if migration_user_aus_visa == 'Yes':
     Visa Type | ${ migration_user_visa_type }
-    Date of Expiry | ${ migration_user_visa_expiry }
+    Date of Expiry | ${ format_date(migration_user_visa_expiry, format=' d MMMM YYYY') }
     %endif
     Purpose of stay in Australia | ${ migration_user_reason_stay }
     %elif is_user_main_applicant == 'No':
@@ -176,7 +176,7 @@ review:
       You said your last name was **${migration_user_last_name}**
   - Revisit: migration_user_DOB
     button: |
-      You said your Date of Birth was **${migration_user_DOB}**
+      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY')}**
   - Revisit: migration_user_email_address
     button: |
       You provided your email as **${migration_user_email_address}**
@@ -235,7 +235,7 @@ review:
       You provided your email as **${migration_user_email_address}**
   - Revisit: migration_user_DOB
     button: |
-      You said your Date of Birth was **${migration_user_DOB}**
+      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY') }**
   - Revisit: migration_user_phone_number
     button: |
       You provided your phone number as **${migration_user_phone_number}**
@@ -250,7 +250,7 @@ review:
       You said the Main Applicant's last name was **${migration_main_app_last_name}**
   - Revisit: migration_main_app_DOB
     button: |
-      You said the Main Applicant's Date of Birth was **${migration_main_app_DOB}**
+      You said the Main Applicant's Date of Birth was **${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }**
   - Revisit: migration_main_app_email_address
     button: |
       You provided the Main Applicant's as **${migration_main_app_email_address}**
@@ -274,7 +274,7 @@ review:
       You provided your Visa Type as **${migration_main_app_visa_type}**
   - Revisit: migration_main_app_visa_expiry
     button: |
-      You provided your Visa Date of Expiry as **${migration_main_app_visa_expiry}**
+      You provided your Visa Date of Expiry as **${ format_date(migration_main_app_visa_expiry, format=' d MMMM YYYY') }**
   - Revisit: migration_main_app_reason_stay
     button: |
       You provided your Purpose of stay in Australia as **${migration_main_app_reason_stay}**
@@ -294,9 +294,19 @@ review:
       You mentioned that you would like to meet **${appointment_type}**
 continue button field: M_main_app_review_answers
 ---
+#This creates a DAList to attach the users uploaded documents for the migration path
+objects:
+  - migration_documents_to_send: DAList.using(auto_gather = False)
+---
+#This code block controls the documents sent via email to the user and MSM Legal for the migration path
+code:  | 
+  migration_documents_to_send.append(MSM_Legal_Answer_Template_Migration)
+  migration_documents_to_send.append(migration_user_documents)
+  migration_documents_to_send.gathered=True
+---
 #This code block sends the email to the user for the migration path
 code: |
-  migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=[MSM_Legal_Answer_Template_Migration] + [migration_user_documents])
+  migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=migration_documents_to_send)
 ---
 #This is the email template for the migration path email that the user will recieve
 template: migration_notification
