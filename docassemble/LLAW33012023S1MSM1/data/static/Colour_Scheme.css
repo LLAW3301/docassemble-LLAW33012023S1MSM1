@@ -50,8 +50,8 @@
 /* Sets the colour of the 'Main Applicant' hint information to match the other hint '(?)' buttons*/
 .daterm {
     cursor: pointer;
-    color: #20c997;
-} 
+    color: #0dcaf0;
+}
 /* Sets the colour of the text-entry data types when typing in them...*/
 .form-control:active{
     color: #212529;
@@ -111,6 +111,7 @@
     font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
     font-style: normal;
     --bs-font-sans-serif: 'Montserrat',Helvetica,Arial,Lucida,sans-serif
+    --bs-link-color: #0d6efd;
 }  
 :root {
     --bs-font-sans-serif: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
@@ -119,6 +120,7 @@
     --bs-body-font-family: var(--bs-font-sans-serif);
     --bs-body-font-size: 1rem;
     --bs-body-font-weight: 400;
+    --bs-link-color: #0d6efd;
 }
 .btn {
     --bs-btn-padding-x: 0.75rem;
@@ -158,4 +160,16 @@
     --bs-btn-active-bg: $teal-200;
     --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
     --bs-btn-disabled-color: #000;
+}
+/* Sets the colour of links*/
+:root {
+    --bs-font-sans-serif: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
+    --bs-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,
+    "Liberation Mono","Courier New",monospace;
+    --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    --bs-body-font-family: var(
+    --bs-font-sans-serif);
+    --bs-body-font-size: 1rem;
+    --bs-body-font-weight: 400;
+    --bs-link-color: #0dcaf0;
 }
