@@ -3,6 +3,7 @@
 include:
   - Wills_Estates_Questions.yml
   - Migration_Questions.yml
+  - Colour_Scheme.yml
 ---
 mandatory: True
 code: |

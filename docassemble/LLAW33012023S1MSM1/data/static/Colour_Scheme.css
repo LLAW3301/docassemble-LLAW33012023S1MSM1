@@ -1,0 +1,161 @@
+/* This cose sets the colour of the navigation bar
+*/
+.navbar{
+    background-color: rgb(0,0,0) !important;
+}
+/* This sets the colour of the 'Source' link in the navbar */
+.navbar .nav-item a{
+    color: rgb(0,0,0) !important;
+}
+/* Sets the appearance for the 'Continue' button... */
+.btn-primary{
+  color: rgb(255,255,255);
+  background-color: rgb(0, 0, 0);
+  border-color: rgb(0,0,0);
+  box-shadow: rgba(0, 0, 0, 0.3);
+}
+/* ...and when hovering over it */
+.btn-primary:hover{
+  color: rgb(255,255,255);
+  background-color: rgba(0,0,0,0.3);
+  border-color: rgb(0,0,0);
+}
+/* Sets the appearance for the 'Exit' button... */
+.btn-danger{
+  color: rgb(255,255,255);
+  background-color: rgb(237, 28, 36);
+  border-color: rgb(237,28,36); 
+}
+/* ...and when hovering over it */
+.btn-danger:hover{
+  color: rgb(255,255,255);
+  background-color: rgba(237,28,36,0.3);
+  border-color: rgb(237,28,36);
+}
+/* Sets the appearance for buttons once they've been selected... */
+.btn-primary:focus{
+  color: rgb(255,255,255);
+  background-color: rgb(0, 0, 0);
+  border-color: rgb(0,0,0);
+  --bs-btn-box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.15),0 1px 1px rgba(0, 0, 0, 0.075);
+  --bs-btn-disabled-opacity: 0.65;
+  --bs-btn-focus-box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.075);
+}
+/* Sets the appearance for unselected buttons when hovering over it*/
+.btn-light:hover{
+  color: rgb(255,255,255);
+  background-color: rgba(0,0,0,0.3);
+  border-color: rgb(0,0,0);
+}
+/* Sets the colour of the 'Main Applicant' hint information to match the other hint '(?)' buttons*/
+.daterm {
+    cursor: pointer;
+    color: #20c997;
+} 
+/* Sets the colour of the text-entry data types when typing in them...*/
+.form-control:active{
+    color: #212529;
+    background-color: #fff;
+    border-color: rgb(0,0,0);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+/* Sets the colour of the text-entry data types when selected...*/
+.form-control:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: rgb(0,0,0);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+/* Sets the colour of the text-entry data types when hovering over it*/
+.form-control:hover{
+    color: #212529;
+    background-color: #fff;
+    border-color: rgb(0,0,0);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+} 
+/* Sets the colour of the drop-down data types when typing in them...*/
+.form-select:active{
+    color: #212529;
+    background-color: #fff;
+    border-color: rgb(0,0,0);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+/* Sets the colour of the drop-down data types when selected...*/
+.form-select:focus{
+    color: #212529;
+    background-color: #fff;
+    border-color: rgb(0,0,0);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+/* Sets the colour of the drop-down data types when hovering over it*/
+.form-select:hover{
+    color: #212529;
+    background-color: #fff;
+    border-color: rgb(0,0,0);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+.da-page-header{
+    color: rgb(0,0,0);
+    font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
+    font-weight: 400;
+    font-style: normal;
+} 
+.body.da-pad-for-navbar.vsc-initialized.dabody{  
+    color: rgb(0,0,0);
+    font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
+    font-style: normal;
+    --bs-font-sans-serif: 'Montserrat',Helvetica,Arial,Lucida,sans-serif
+}  
+:root {
+    --bs-font-sans-serif: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
+    --bs-font-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+    --bs-gradient: linear-gradient(180deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0));
+    --bs-body-font-family: var(--bs-font-sans-serif);
+    --bs-body-font-size: 1rem;
+    --bs-body-font-weight: 400;
+}
+.btn {
+    --bs-btn-padding-x: 0.75rem;
+    --bs-btn-padding-y: 0.375rem;
+    --bs-btn-font-family: 'Montserrat',Helvetica,Arial,Lucida,sans-serif;
+    --bs-btn-font-size: 1rem;
+    --bs-btn-font-weight: 400;
+}
+/* Sets the appearance for the 'Revisit' buttons on the penultimate screen when hovering over it... */
+.btn-secondary:hover{
+  color: rgb(255,255,255);
+  background-color: rgb(0,0,0);
+  border-color: rgb(0,0,0);
+}
+/* Sets the appearance for the 'Revisit' buttons on the penultimate screen when selected*/
+.btn-secondary:focus{
+    color: #212529;
+    background-color: rgb(0,0,0);
+    border-color: rgb(0,0,0);
+    outline: 0;
+    box-shadow: 0 0 0 0.25rem rgba(0, 0, 0, 0.1);
+}
+.bg-light:hover {
+    --bs-bg-opacity: 1;
+    background-color: rgba(0,0,0,0.1) !important;
+}
+/* Sets the appearance for the 'Restart' button on the final screen*/
+.btn-warning{
+    --bs-btn-color: #000;
+    --bs-btn-bg: #20c997;
+    --bs-btn-border-color: #20c997;
+    --bs-btn-hover-color: rgb(0,0,0);
+    --bs-btn-hover-border-color: #20c997;
+    --bs-btn-hover-bg: rgb(186,254,232);
+    --bs-btn-focus-shadow-rgb: 217,164,6;
+    --bs-btn-active-color: #000;
+    --bs-btn-active-bg: $teal-200;
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #000;
+}
