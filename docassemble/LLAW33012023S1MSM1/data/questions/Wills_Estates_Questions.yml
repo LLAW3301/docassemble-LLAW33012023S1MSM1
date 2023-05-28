@@ -47,7 +47,7 @@ buttons:
 # This question block asks the user which legal issue they may be having
 question: Potential Wills and Estates Issues
 subquestion: |
-  Which of the following Wills and Estates issues are you seeking advice for?
+  Which of the following Wills and Estates issues do you need help with?
 fields:
   - no label: wills_estates_options
     datatype: checkboxes
@@ -60,6 +60,7 @@ fields:
       - The executor is refusing to lodge an application for probate and I need advice
       - I have been left out of a Will and I need advice
     none of the above: False
+    default: 'I would like to discuss a new Will, Advance Care Directive, or Power of Attorney'
   - Please upload any relevant documents if you have them: wills_estates_user_documents 
     datatype: files
     required: False
@@ -67,14 +68,19 @@ fields:
 # This question block asks the user to fill in their personal information
 question: Personal Information
 subquestion: |
-  Please fill out the personal information Wills and Estates issue.
+  Please fill out the personal information.
 fields:
   - First Name: wills_estates_first_name
+    default: Zoila
   - Last Name: wills_estates_last_name
+    default: Kautzer
   - Date of Birth: wills_estates_DOB
     datatype: date
+    default: 21/06/1984
+    required: False
   - Email Address: wills_estates_email_address
     datatype: email
+    default: kautzerfamily@applicant.com
   - Is your mobile based in Australia?: phone_international
     datatype: noyesradio
     default: False
@@ -82,6 +88,9 @@ fields:
     code: countries_list()
     show if: phone_international
   - What is your phone number?: wills_estates_phone_number
+    default: 8523 1633
+    help: |
+      E.g. 0491 579 455
 ---
 # This code sets the default country for the users phone number
 code: |
@@ -99,7 +108,7 @@ subquestion: |
   
   - If you have made a mistake, click **Revisit** to fix the mistake.
   
-  - If you are satisfied with the information you have provided, click **Continue**.
+  - If you are happy with the details you have provided, click **Continue**.
 review:
   - Revisit: wills_estates_first_name
     button: |

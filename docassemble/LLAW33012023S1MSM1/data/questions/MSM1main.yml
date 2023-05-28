@@ -65,23 +65,29 @@ buttons:
 ---
 #This is the ESL question
 question: |
-  Do you speak a language other than English?
+  Language Other Than English
+subquestion: |
 fields:
-  - no label: ESLquestion
+  - Do you speak a language other than English at home?: ESLquestion
+    help: |
+      Provide the details of the person seeking advice.
     datatype: radio
     choices:
       - Yes
       - No
----
-#These questions are asked if the user chooses yes to the ESL question
-question: Is a translator required for appointments?
-fields:
-  - What language do you speak?: ESL_language_spoken
-  - Do you require an interpreter?: is_interpreter_needed
+    default: No
+  - Language: ESL_language_spoken
+    show if:
+      variable: ESLquestion
+      is: Yes
+  - Do you need a translator?: is_interpreter_needed
     datatype: radio
     choices:
-      - Yes 
-      - No 
+      - Yes
+      - No
+    show if:
+      variable: ESLquestion
+      is: Yes
 ---
 #This asks what legal issue the user has
 question: What is your legal issue related to?
