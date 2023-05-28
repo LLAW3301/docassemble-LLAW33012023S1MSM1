@@ -1,4 +1,11 @@
 ---
+objects:
+  - MSM_Logo: DAStaticFile.using(filename='MSM_Logo2.png')
+---
+mandatory: True
+code: |
+  set_parts(logo='<img src="' + MSM_Logo.url_for() + '" style="height: 50px;">')
+---
 #This includes the code from the other interviews
 include:
   - Wills_Estates_Questions.yml
