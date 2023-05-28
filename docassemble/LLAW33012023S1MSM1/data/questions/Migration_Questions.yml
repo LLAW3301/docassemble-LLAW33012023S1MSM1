@@ -1,4 +1,3 @@
----
 #This is the final screen for the migration path and forces docassemble to run the Migration questions
 event: M_final_screen
 question: Thank you for using the MSM Online Client Intake Form
@@ -56,7 +55,7 @@ subquestion: |
     Visa Type | ${ migration_user_visa_type }
     Date of Expiry | ${ format_date(migration_user_visa_expiry, format=' d MMMM YYYY') }
     %endif
-    Purpose of stay in Australia | ${ migration_user_reason_stay }
+    Purpose of stay in Australia | ${ single_paragraph(migration_user_reason_stay) }
     %elif is_user_main_applicant == 'No':
     Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
     Date of Birth | ${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }
@@ -306,7 +305,10 @@ code:  |
 ---
 #This code block sends the email to the user for the migration path
 code: |
-  migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=migration_documents_to_send)
+  if migration_user_documents != None:
+    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=migration_documents_to_send)
+  else: 
+    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=MSM_Legal_Answer_Template_Migration)
 ---
 #This is the email template for the migration path email that the user will recieve
 template: migration_notification
