@@ -56,7 +56,7 @@ code: |
 #This is the initial welcome screen that explains what the application does
 question: Welcome to MSM Legal
 subquestion: |
-    This application will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and assist in finding the best lawyer to help you.
+    This application will give [MSM Legal](https://www.msmlegal.com.au/) insight into your situation and help in assigning the best staff member to assist you in your matter.
     
     **Disclaimer**
     
@@ -76,9 +76,7 @@ question: |
   Language Other Than English
 subquestion: |
 fields:
-  - Do you speak a language other than English at home?: ESLquestion
-    help: |
-      Provide the details of the person seeking advice.
+  - Do you, or the person the appointment is for, speak a language other than English at home?: ESLquestion
     datatype: radio
     choices:
       - Yes

@@ -51,7 +51,7 @@ buttons:
 # This question block asks the user which legal issue they may be having
 question: Potential Wills and Estates Issues
 subquestion: |
-  Which of the following Wills and Estates issues do you need help with?
+  Which of the following Wills and Estates issue(s) do you need help with?
 fields:
   - no label: wills_estates_options
     datatype: checkboxes
@@ -72,7 +72,7 @@ fields:
 # This question block asks the user to fill in their personal information
 question: Personal Information
 subquestion: |
-  Please fill out the personal information.
+  Please fill out your personal information.
 fields:
   - First Name: wills_estates_first_name
     default: Zoila

@@ -4,6 +4,3 @@
 features:
   css: Colour_Scheme.css
 ---
-objects:
-  MSMLegalLogo: DAStaticFile,using(filename='MSM_Legal_Logo.jpg')
----

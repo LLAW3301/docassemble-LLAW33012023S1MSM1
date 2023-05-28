@@ -266,7 +266,7 @@ fields:
   - Relationship: user_relationship_with_main_app 
     required: False
     hint: |
-       e.g Friend, Child
+       E.g., Friend, Child
 ---
 # These questions are asked if the user is NOT the main applicant
 question:  Please fill out the {Main Applicant}'s personal information below.
@@ -370,7 +370,7 @@ fields:
     default: 'Working as a junior lawyer at an Adelaide law firm'
 terms:
   main purpose: |
-    The main reason for the Main Applicant's stay in Australia (e.g., study, employment).
+    The main reason for the Main Applicant's stay in Australia (E.g., study, employment).
 ---
 #If the user is the Main Applicant this asks for their Visa Details
 question: Your Visa Details
@@ -406,7 +406,7 @@ fields:
     default: Currently working as a nurse at the Royal Adelaide Hospital
 terms:
   main purpose: |
-    The reason for your stay in Australia (e.g., study, employment).
+    The reason for your stay in Australia (E.g., study, employment).
 ---
 # This asks what legal issue/s the Main Applicant is seeking advice for 
 question: Purpose of enquiry 
@@ -434,7 +434,7 @@ fields:
     datatype: files
     required: False
     help: |
-      eg. Current Visa, Passport, Visa refusal documents, evidence of academic/trade qualifications, resume, or any letters from the Department of Home Affairs
+      E.g., Current Visa, Passport, Visa refusal documents, evidence of academic/trade qualifications, resume, or any letters from the Department of Home Affairs
 ---
 #This question gives migration users the option to choose which fee earner they would like to see
 question: Which lawyer/migration agent you would like to see?
