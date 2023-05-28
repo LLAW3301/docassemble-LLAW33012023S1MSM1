@@ -1,4 +1,3 @@
----
 #This is the final screen for the migration path and forces docassemble to run the Migration questions
 event: M_final_screen
 question: Thank you for using the MSM Online Client Intake Form
@@ -37,13 +36,13 @@ subquestion: |
         
     </style>
   </head> 
-  
+    
     Questions|Main Applicant's Details
     ---------------|-------------
     %if is_user_main_applicant == 'Yes':
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
     %if migration_user_DOB != '':
-    Date of Birth | ${ format_date(migration_user_DOB, format=' dd mmmm yyyy') }
+    Date of Birth | ${ format_date(migration_user_DOB, format=' d MMMM YYYY') }
     %endif
     Email Address | ${ migration_user_email_address }
     Current Address | ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
@@ -55,14 +54,14 @@ subquestion: |
     %if migration_user_aus_visa == 'Yes':
     Visa Type | ${ migration_user_visa_type }
     %if migration_user_visa_expiry != '':
-    Date of Expiry | ${ format_date(migration_user_visa_expiry, format=' dd mmmm yyyy') }
+    Date of Expiry | ${ format_date(migration_user_visa_expiry, format=' d MMMM YYYY') }
     %endif
     %endif
-    Purpose of stay in Australia | ${ migration_user_reason_stay }
+    Purpose of stay in Australia | ${ single_paragraph(migration_user_reason_stay) }
     %elif is_user_main_applicant == 'No':
     Full Name | ${ migration_main_app_first_name } ${ migration_main_app_last_name }
     %if migration_main_app_DOB != '':
-    Date of Birth | ${ format_date(migration_main_app_DOB, format=' dd mmmm yyyy') }
+    Date of Birth | ${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }
     %endif
     Email Address | ${ migration_main_app_email_address }
     Address | ${ migration_main_app_address } ${ migration_main_app_city } ${ migration_main_app_state } ${ migration_main_app_postcode }
@@ -73,11 +72,12 @@ subquestion: |
     Current Australian Visa | ${ migration_main_app_aus_visa }
     %if migration_main_app_aus_visa == 'Yes':
     Visa Type | ${ migration_main_app_visa_type }
+    Purpose of stay in Australia | ${ single_paragraph(migration_main_app_reason_stay) }
     %if migration_main_app_visa_expiry != '':
-    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' dd mmmm yyyy') }
+    Date of Expiry | ${ format_date(migration_main_app_visa_expiry, format=' d MMMM YYYY') }
     %endif
     %endif
-    Purpose of stay in Australia | ${ migration_main_app_reason_stay }
+    Purpose of stay in Australia | ${ migration_main_app_reason_stay }=
     %endif
   
     %if is_user_main_applicant == 'No':
@@ -93,7 +93,7 @@ subquestion: |
     ------------|-------------
     Purpose of Enquiry | ${ migration_enquiry_purpose.true_values() }
     %if 'Other' in migration_enquiry_purpose.true_values():
-    Details | ${ migration_other_purpose }
+    Details | ${ single_paragraph(migration_other_purpose) }
     %endif
     You Would Like To See | ${ MSM_fee_earner }
     Appointment Type | ${ appointment_type }
@@ -207,7 +207,7 @@ review:
       You said your last name was **${migration_user_last_name}**
   - Revisit: migration_user_DOB
     button: |
-      You said your Date of Birth was **${migration_user_DOB}**
+      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY')}**
   - Revisit: migration_user_email_address
     button: |
       You provided your email as **${migration_user_email_address}**
@@ -237,7 +237,12 @@ review:
   #    You provided your Purpose of stay in Australia as **${migration_user_reason_stay}**
   - Revisit : migration_enquiry_purpose
     button: |
-      You mentioned that the Purpose of your Enquiry was **${migration_enquiry_purpose.true_values()}**
+      You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
+  - Revisit: migration_user_documents
+    button: |
+      Your Documents;
+      
+      ${migration_user_documents}
   - Revisit: MSM_fee_earner
     button: |
       You mentioned that you would like to see **${MSM_fee_earner}**
@@ -259,6 +264,9 @@ review:
   - Revisit: migration_user_email_address
     button: |
       You provided your email as **${migration_user_email_address}**
+  - Revisit: migration_user_DOB
+    button: |
+      You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY') }**
   - Revisit: migration_user_phone_number
     button: |
       You provided your phone number as **${migration_user_phone_number}**
@@ -273,7 +281,7 @@ review:
       You said the Main Applicant's last name was **${migration_main_app_last_name}**
   - Revisit: migration_main_app_DOB
     button: |
-      You said the Main Applicant's Date of Birth was **${migration_main_app_DOB}**
+      You said the Main Applicant's Date of Birth was **${ format_date(migration_main_app_DOB, format=' d MMMM YYYY') }**
   - Revisit: migration_main_app_email_address
     button: |
       You provided the Main Applicant's as **${migration_main_app_email_address}**
@@ -297,13 +305,18 @@ review:
       You provided your Visa Type as **${migration_main_app_visa_type}**
   - Revisit: migration_main_app_visa_expiry
     button: |
-      You provided your Visa Date of Expiry as **${migration_main_app_visa_expiry}**
+      You provided your Visa Date of Expiry as **${ format_date(migration_main_app_visa_expiry, format=' d MMMM YYYY') }**
   - Revisit: migration_main_app_reason_stay
     button: |
       You provided your Purpose of stay in Australia as **${migration_main_app_reason_stay}**
   - Revisit : migration_enquiry_purpose
     button: |
       You mentioned that your Purpose of Enquiry was; **${migration_enquiry_purpose.true_values()}**
+  - Revisit: migration_user_documents
+    button: |
+      Your Documents;
+      
+      ${migration_user_documents}
   - Revisit: MSM_fee_earner
     button: |
       You mentioned that you would like to see **${MSM_fee_earner}**
@@ -312,9 +325,22 @@ review:
       You mentioned that you would like to meet **${appointment_type}**
 continue button field: M_main_app_review_answers
 ---
+#This creates a DAList to attach the users uploaded documents for the migration path
+objects:
+  - migration_documents_to_send: DAList.using(auto_gather = False)
+---
+#This code block controls the documents sent via email to the user and MSM Legal for the migration path
+code:  | 
+  migration_documents_to_send.append(MSM_Legal_Answer_Template_Migration)
+  migration_documents_to_send.append(migration_user_documents)
+  migration_documents_to_send.gathered=True
+---
 #This code block sends the email to the user for the migration path
 code: |
-  migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['kell0481@flinders.edu.au'], template=migration_notification, attachments=[MSM_Legal_Answer_Template_Migration])
+  if migration_user_documents != None:
+    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=migration_documents_to_send)
+  else: 
+    migration_email_sent_ok = send_email(to=migration_user_email_address,bcc=['shai.barboza@flinders.edu.au'], template=migration_notification, attachments=MSM_Legal_Answer_Template_Migration)
 ---
 #This is the email template for the migration path email that the user will recieve
 template: migration_notification
@@ -517,6 +543,9 @@ fields:
     datatype: area
     required: False
     show if: migration_enquiry_purpose['Other']
+  - Please upload any relevant documents if you have them: migration_user_documents 
+    datatype: files
+    required: False
 ---
 #This question gives migration users the option to choose which fee earner they would like to see
 question: Which lawyer/migration agent you would like to see?
