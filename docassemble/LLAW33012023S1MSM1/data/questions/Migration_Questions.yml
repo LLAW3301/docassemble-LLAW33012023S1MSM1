@@ -123,26 +123,21 @@ terms:
 #If user is the Main Applicant this screen shall ask if there are any family members applying/migrating with them - this is where the loop may come in handy
 question: Family Members
 subquestion: |
-  Do you have any **{family members}** who will be migrating with you?
+  Will any family be coming with you?
 field: migration_user_family_members
 buttons:
   - "Yes"
   - "No"
-terms:
-  family members: |
-    Family members means any person related to you (e.g., spouse, children). 
+
 ---
 #If user is NOT the Main Applicant this screen shall ask if there are any family members applying/migrating with the Main Applicant - this is where the loop may come in handy
 question: Family Members
 subquestion: |
-  Does the Main Applicant have any **{family members}** who will be migrating with them?
+  Does the main applicant have any family coming with them?
 field: migration_main_app_family_members
 buttons:
   - "Yes"
   - "No"
-terms:
-  family members: |
-    Family members means any person related to the Main Applicant (e.g., spouse, children).
 ---
 #If the user is the main applicant this will ask for their personal details 
 question: Please fill out your details below.
@@ -358,34 +353,33 @@ fields:
     code: countries_list()
     default: CN
     required: False
-    help: |
-      The Country of Issue is the country that issued the passport.
+
 ---
 #If User is NOT the main applicant then this screen will ask for their relationship to the MA
-question: What is your relationship to the Main Applicant?
+question: How are you related to the Main Applicant?
 fields: 
   - Relationship: user_relationship_with_main_app 
     required: False
     hint: |
-      e.g., mother, employer, friend
+       e.g friend, child
 ---
 # These questions are asked if the user is NOT the main applicant
 question:  Please fill out the {Main Applicant}'s personal information below.
 subquestion: |
 fields:
-  - The Main Applicant's First Name: migration_main_app_first_name
+  - Their First Name: migration_main_app_first_name
     default: Basanti 
-  - The Main Applicant's Last Name: migration_main_app_last_name
+  - Their Last Name: migration_main_app_last_name
     default: Deshpande
-  - The Main Applicant's Date of Birth: migration_main_app_DOB
+  - Their Date of Birth: migration_main_app_DOB
     datatype: date
     required: False
     default: 27/12/2003
-  - The Main Applicant's Email Address: migration_main_app_email_address
+  - Their Email Address: migration_main_app_email_address
     datatype: email
     required: False
     default: basantistudies1@applicant.com
-  - The Main Applicant's Current Address: migration_main_app_address
+  - Their Current Address: migration_main_app_address
     required: False
     default: Apartment 212, 12 Bank Street
     help: |
@@ -504,7 +498,7 @@ terms:
 # This asks what legal issue/s the Main Applicant is seeking advice for 
 question: Purpose of enquiry 
 subquestion: |
-  Which best describes the main issue you are seeking advice for.
+   What best describes the issue you are seeking advice for?
 fields:
   - Purpose of Enquiry: migration_enquiry_purpose
     datatype: checkboxes
@@ -512,7 +506,7 @@ fields:
       - To apply for permanent pathway
       - To extend my current stay
       - To bring family members to Australia
-      - Issues with current visa (character, breach of visa condition etc)
+      - Issues with current visa
       - Visa refusal
       - Visa cancellation
       - Citizenship
