@@ -85,7 +85,13 @@ subquestion: |
     ------------|-------------
     Full Name | ${ migration_user_first_name } ${ migration_user_last_name }
     Email Address | ${ migration_user_email_address }
+    %if migration_user_DOB != '':
+    Date of Birth | ${ format_date(migration_user_DOB, format=' d MMMM YYYY') }
+    %endif
+    Current Address | ${ migration_user_unit_apartment } ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }
+    Country | ${ country_name(migration_user_country) }
     Phone Number | ${ migration_user_phone_number }
+    
     Relationship to Main Applicant | ${ user_relationship_with_main_app }
     %endif
     
@@ -522,6 +528,9 @@ review:
   - Revisit: migration_user_DOB
     button: |
       You said your Date of Birth was **${ format_date(migration_user_DOB, format=' d MMMM YYYY') }**
+  - Revisit: migration_user_address
+    button: |
+      You said your Current Address was **${ migration_user_unit_apartment } ${ migration_user_address } ${ migration_user_city } ${ migration_user_state } ${ migration_user_postcode }, ${ country_name(migration_user_country) }**
   - Revisit: migration_user_phone_number
     button: |
       You provided your Contact Number as **${migration_user_phone_number}**

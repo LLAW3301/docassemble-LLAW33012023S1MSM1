@@ -115,6 +115,7 @@ fields:
       - No
   - Please provide their Full Name: wills_estates_other_party_name
     required: False
+    default: William Dispute
     show if:
       variable: wills_estates_other_party_yesno
       is: 'Yes'
