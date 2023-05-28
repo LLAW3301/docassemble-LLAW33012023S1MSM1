@@ -276,6 +276,7 @@ fields:
     default: Basanti 
   - Other Given Name(s): migration_main_app_given_name
     required: False
+    default: Sarika
   - Their Last Name: migration_main_app_last_name
     default: Deshpande
   - Their Date of Birth: migration_main_app_DOB
