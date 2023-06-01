@@ -64,7 +64,7 @@ subquestion: |
     
     - Any information obtained as part of this form is not intended to be a substitute for legal advice.
     
-    - All information collected by this form is collected in accordance with the **Privacy Act 1988 (Cth)**.
+    - All information collected by this form is collected in accordance with the **Privacy Act 1988 (Cth)** and the [**MSM Legal Privacy Policy**](https://www.msmlegal.com.au/privacy/).
 field: MSMLegalWelcome
 buttons:
   - I do not accept: exit
