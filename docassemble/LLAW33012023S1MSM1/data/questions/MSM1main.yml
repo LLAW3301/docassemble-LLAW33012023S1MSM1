@@ -154,10 +154,20 @@ under: ""
 # This controls what is displayed in the email sent to the user if they wish to save and resume
 template: save_resume_template
 subject: |
-  Your interview
+  MSM Legal Interview - Your Saved Answers
 content: |
-  To resume your interview, 
+  Dear User,
+  
+  To resume your MSM Legal interview please
   [click here](${ interview_url() }).
+  
+  Please note this link will expire in 90 days from today.
+  
+  Should you have any questions or concerns, please do not hesitate to contact us on (08) 8161 5088 or via email at mail@msmlegal.com.au
+  
+  Kind Regards, 
+  
+  MSM Legal
 ---
 #This is the flinders attribution code
 default screen parts:
