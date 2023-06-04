@@ -1,7 +1,7 @@
 /* This cose sets the colour of the navigation bar
 */
 .navbar{
-    background-color: rgb(0,0,0) !important;
+    background-color: rgb(210,210,210)!important;
 }
 /* This sets the colour of the 'Source' link in the navbar */
 .navbar .nav-item a{
@@ -149,17 +149,16 @@
 }
 /* Sets the appearance for the 'Restart' button on the final screen*/
 .btn-warning{
-    --bs-btn-color: #fff;
-    --bs-btn-bg: #0dcaf0;
-    --bs-btn-border-color: #0dcaf0;
-    --bs-btn-hover-color: rgb(255,255,255);
-    --bs-btn-hover-border-color: #0dcaf0;
-    --bs-btn-hover-bg: rgb(196,251,248);
+    --bs-btn-color: #000;
+    --bs-btn-bg: #ffc107;
+    --bs-btn-border-color: #ffc107;
+    --bs-btn-hover-color: rgba(255,201,14,0.3);
+    --bs-btn-hover-border-color: #ffc107;
+    --bs-btn-hover-bg: rgba(255,201,14,0.3);
     --bs-btn-focus-shadow-rgb: 217,164,6;
-    --bs-btn-active-color: #000;
-    --bs-btn-active-bg: $teal-200;
-    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
-    --bs-btn-disabled-color: #000;
+    --bs-btn-active-color: #ffc107;
+    --bs-btn-active-bg: #ffc107;
+    --bs-btn-disabled-color: #ffc107;
 }
 /* Sets the colour of links*/
 :root {
